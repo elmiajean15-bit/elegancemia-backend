@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: ['https://elegancemia.com', 'https://www.elegancemia.com'],
+    origin: ['https://localhost:3001', 'http://127.0.0.1:3001'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
