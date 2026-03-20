@@ -1,11 +1,11 @@
 // product.controller.ts
 
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ProductService } from './product.service';
+import { PublicProductService } from './product.service';
 
 @Controller('public/products')
-export class ProductController {
-  constructor(private readonly service: ProductService) {}
+export class PublicProductController {
+  constructor(private readonly service: PublicProductService) {}
 
   // ✅ GET FEATURED
   @Get('featured')
@@ -20,8 +20,8 @@ export class ProductController {
   }
 
   // ✅ GET ONE (slug)
-  @Get(':slug')
-  findOne(@Param('slug') slug: string) {
-    return this.service.findOneBySlug(slug);
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.service.findOneById(id);
   }
 }

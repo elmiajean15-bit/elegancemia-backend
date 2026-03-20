@@ -41,8 +41,8 @@ export class PublicPortfolioService {
     };
   }
 
-  // 🔥 Détail projet (slug)
-  async findBySlug(id: string) {
+  // 🔥 Détail projet (id)
+  async findById(id: string) {
     const data = this.prisma.portfolioProject.findUnique({
       where: { id },
       include: {

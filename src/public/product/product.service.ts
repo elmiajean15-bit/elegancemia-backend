@@ -5,7 +5,7 @@ import { PrismaService } from '../../database/prisma.service';
 import { Prisma } from '../../../generated/prisma/client';
 
 @Injectable()
-export class ProductService {
+export class PublicProductService {
   constructor(private prisma: PrismaService) {}
 
   // ✅ GET ALL (avec filtres)
@@ -89,10 +89,10 @@ export class ProductService {
     });
   }
 
-  // ✅ GET ONE (par slug)
-  async findOneBySlug(slug: string) {
+  // ✅ GET ONE (par id)
+  async findOneById(id: string) {
     const product = await this.prisma.product.findUnique({
-      where: { slug },
+      where: { id },
       include: {
         images: true,
         variants: true,

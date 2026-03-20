@@ -18,9 +18,9 @@ export class PublicPortfolioController {
   }
 
   // 🔥 DETAIL PROJET
-  @Get(':slug')
-  async findOne(@Param('slug') slug: string) {
-    const project = await this.service.findBySlug(slug);
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const project = await this.service.findById(id);
 
     if (!project) {
       return {
