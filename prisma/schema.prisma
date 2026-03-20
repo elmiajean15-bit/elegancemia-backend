@@ -1,0 +1,360 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+
+model Admin {
+
+  id        String   @id @default(uuid())
+
+  name      String
+
+  email     String   @unique
+  phone     String?  @unique
+
+  password  String
+
+  role      AdminRole @default(admin)
+
+  isActive  Boolean @default(true)
+
+  createdAt DateTime @default(now())
+}
+
+enum AdminRole {
+  admin
+  super_admin
+  manager
+}
+
+model Client {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String
+  city      String?
+  gender    ClientGender?
+  avatar    String?
+  role      ClientRole @default(client)
+  isActive  Boolean @default(true)
+
+  password  String
+
+  orders    Order[]
+
+  customModeOrders CustomModeOrder[]
+
+  createdAt DateTime @default(now())
+}
+
+
+model Product {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  name        String
+  description String   @db.Text
+
+  category    ProductCategory
+
+  price       Float
+  currency    Currency
+
+  featured    Boolean @default(false)
+  rating      Float?
+
+  stockQuantity Int @default(0)
+  inStock Boolean @default(true)
+
+  createdAt   DateTime @default(now())
+
+  images      ProductImage[]
+  variants    ProductVariant[]
+  tags        ProductTag[]
+  reviews     Review[]
+
+  orderItems OrderItem[]
+}
+
+model ProductTag {
+
+  id String @id @default(uuid())
+
+  name String
+  slug String @unique
+
+  products Product[]
+}
+
+model ProductImage {
+  id        String  @id @default(uuid())
+  url       String
+  alt       String?
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model ProductVariant {
+  id        String @id @default(uuid())
+  name      String
+  value     String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model Review {
+  id        String   @id @default(uuid())
+
+  name      String
+  rating    Int
+  comment   String
+
+  verified  Boolean @default(false)
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  createdAt DateTime @default(now())
+}
+
+model PortfolioProject {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  description String   @db.Text
+
+  category    PortfolioCategory
+  year        Int
+
+  featured    Boolean @default(false)
+
+  images      PortfolioImage[]
+}
+
+model PortfolioImage {
+  id        String @id @default(uuid())
+  url       String
+  alt       String
+
+  project   PortfolioProject @relation(fields: [projectId], references: [id])
+  projectId String
+}
+
+model BlogPost {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+
+  category    BlogCategory
+
+  coverUrl    String
+  coverAlt    String
+
+  authorName  String
+  authorAvatar String
+
+  featured    Boolean @default(false)
+
+  publishedAt DateTime
+}
+
+model Order {
+
+  id String @id @default(uuid())
+
+  clientId String
+  client Client @relation(fields: [clientId], references: [id])
+
+  total Float
+  currency Currency
+
+  status String
+
+  items OrderItem[]
+
+  payments Payment[]
+
+  createdAt DateTime @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  quantity  Int
+  price     Float
+}
+
+
+model ShippingMethod {
+  id            String   @id @default(uuid())
+  name          String
+  zone          ShippingZone
+  city          String
+  price         Float
+  currency      Currency
+  estimatedDays Int
+  active        Boolean @default(true)
+}
+
+model Payment {
+
+  id String @id @default(uuid())
+
+  transactionId String?
+
+  method PaymentMethod
+
+  amount Float
+
+  currency Currency
+
+  status String
+
+  orderId String?
+  order Order? @relation(fields: [orderId], references: [id])
+
+  customModeOrderId String?
+  customModeOrder CustomModeOrder? @relation(fields: [customModeOrderId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model CustomModeOrder {
+
+  id String @id @default(uuid())
+
+  clientId String?
+  client   Client? @relation(fields: [clientId], references: [id])
+
+  type String
+  genre String
+  pieces String
+  occasion String
+
+  style String
+  couleur String
+  matiere String
+  complexite String
+  inspiration String
+
+  taille String
+  morphologie String
+  finitions String
+  accessoires String
+  essayage String
+
+  budget String
+  delai String
+  livraison String
+
+  nom String?
+  email String?
+  telephone String?
+  ville String?
+  pays String?
+  source String?
+
+  status String @default("pending")
+
+  payments Payment[]
+
+  createdAt DateTime @default(now())
+}
+
+model BlacklistedToken {
+  id        String   @id @default(uuid())
+  token     String
+  userId    String
+  role      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id      String @id @default(uuid())
+
+  name    String
+  email   String
+  phone   String?
+
+  subject ContactSubject
+  message String
+
+  createdAt DateTime @default(now())
+}
+
+enum ProductCategory {
+  pagne
+  tissu
+  accessoire
+  pret_a_porter
+  creation
+}
+
+enum PortfolioCategory {
+  stylisme
+  modelisme
+  accessoire
+}
+
+enum BlogCategory {
+  stylisme
+  modelisme
+  accessoire
+  business
+  tendance
+}
+
+enum ClientRole {
+  client
+  admin
+}
+
+enum ClientGender {
+  femme
+  homme
+  autre
+}
+
+enum PaymentMethod {
+  mobile_money
+  card
+  bank_transfer
+}
+
+enum ShippingZone {
+  national
+  international
+}
+
+
+enum Currency {
+  FCFA
+  EUR
+}
+
+enum ContactSubject {
+  information
+  commande
+  collaboration
+  support
+}
