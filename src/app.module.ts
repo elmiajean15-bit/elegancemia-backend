@@ -14,6 +14,8 @@ import { ProductModule } from './admin/product/product.module';
 import { PortfolioModule } from './admin/portfolio/portfolio.module';
 import { PublicPortfolioModule } from './public/portfolio/portfolio.module';
 import { PublicProductModule } from './public/product/product.module';
+import { PublicReviewModule } from './public/reviews/review.module';
+import { ModeOrderModule } from './public/commande-mode/mode-oder.module';
 
 @Module({
   imports: [
@@ -22,8 +24,10 @@ import { PublicProductModule } from './public/product/product.module';
     AdminAuthModule,
     AdminClientModule,
     PublicProductModule,
+    ModeOrderModule,
     PublicPortfolioModule,
     ProductModule,
+    PublicReviewModule,
     PortfolioModule,
     // MailModule,
     ConfigModule.forRoot({

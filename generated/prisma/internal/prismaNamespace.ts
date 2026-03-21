@@ -395,6 +395,7 @@ export const ModelName = {
   PortfolioImage: 'PortfolioImage',
   BlogPost: 'BlogPost',
   Order: 'Order',
+  GuestClient: 'GuestClient',
   OrderItem: 'OrderItem',
   ShippingMethod: 'ShippingMethod',
   Payment: 'Payment',
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "admin" | "client" | "product" | "productTag" | "productImage" | "productVariant" | "review" | "portfolioProject" | "portfolioImage" | "blogPost" | "order" | "orderItem" | "shippingMethod" | "payment" | "customModeOrder" | "blacklistedToken" | "contactMessage"
+    modelProps: "admin" | "client" | "product" | "productTag" | "productImage" | "productVariant" | "review" | "portfolioProject" | "portfolioImage" | "blogPost" | "order" | "guestClient" | "orderItem" | "shippingMethod" | "payment" | "customModeOrder" | "blacklistedToken" | "contactMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1146,6 +1147,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    GuestClient: {
+      payload: Prisma.$GuestClientPayload<ExtArgs>
+      fields: Prisma.GuestClientFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuestClientFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuestClientFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload>
+        }
+        findFirst: {
+          args: Prisma.GuestClientFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuestClientFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload>
+        }
+        findMany: {
+          args: Prisma.GuestClientFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload>[]
+        }
+        create: {
+          args: Prisma.GuestClientCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload>
+        }
+        createMany: {
+          args: Prisma.GuestClientCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.GuestClientDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload>
+        }
+        update: {
+          args: Prisma.GuestClientUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuestClientDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuestClientUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.GuestClientUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestClientPayload>
+        }
+        aggregate: {
+          args: Prisma.GuestClientAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuestClient>
+        }
+        groupBy: {
+          args: Prisma.GuestClientGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuestClientGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuestClientCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuestClientCountAggregateOutputType> | number
+        }
+      }
+    }
     OrderItem: {
       payload: Prisma.$OrderItemPayload<ExtArgs>
       fields: Prisma.OrderItemFieldRefs
@@ -1601,6 +1668,7 @@ export const ClientScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   city: 'city',
+  country: 'country',
   gender: 'gender',
   avatar: 'avatar',
   role: 'role',
@@ -1666,6 +1734,7 @@ export const ReviewScalarFieldEnum = {
   comment: 'comment',
   verified: 'verified',
   productId: 'productId',
+  clientId: 'clientId',
   createdAt: 'createdAt'
 } as const
 
@@ -1725,6 +1794,20 @@ export const OrderScalarFieldEnum = {
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
 
 
+export const GuestClientScalarFieldEnum = {
+  id: 'id',
+  nom: 'nom',
+  email: 'email',
+  telephone: 'telephone',
+  ville: 'ville',
+  pays: 'pays',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type GuestClientScalarFieldEnum = (typeof GuestClientScalarFieldEnum)[keyof typeof GuestClientScalarFieldEnum]
+
+
 export const OrderItemScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
@@ -1768,6 +1851,7 @@ export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeo
 export const CustomModeOrderScalarFieldEnum = {
   id: 'id',
   clientId: 'clientId',
+  guestClientId: 'guestClientId',
   type: 'type',
   genre: 'genre',
   pieces: 'pieces',
@@ -1856,6 +1940,7 @@ export const ClientOrderByRelevanceFieldEnum = {
   email: 'email',
   phone: 'phone',
   city: 'city',
+  country: 'country',
   avatar: 'avatar',
   password: 'password'
 } as const
@@ -1906,7 +1991,8 @@ export const ReviewOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
   comment: 'comment',
-  productId: 'productId'
+  productId: 'productId',
+  clientId: 'clientId'
 } as const
 
 export type ReviewOrderByRelevanceFieldEnum = (typeof ReviewOrderByRelevanceFieldEnum)[keyof typeof ReviewOrderByRelevanceFieldEnum]
@@ -1956,6 +2042,19 @@ export const OrderOrderByRelevanceFieldEnum = {
 export type OrderOrderByRelevanceFieldEnum = (typeof OrderOrderByRelevanceFieldEnum)[keyof typeof OrderOrderByRelevanceFieldEnum]
 
 
+export const GuestClientOrderByRelevanceFieldEnum = {
+  id: 'id',
+  nom: 'nom',
+  email: 'email',
+  telephone: 'telephone',
+  ville: 'ville',
+  pays: 'pays',
+  source: 'source'
+} as const
+
+export type GuestClientOrderByRelevanceFieldEnum = (typeof GuestClientOrderByRelevanceFieldEnum)[keyof typeof GuestClientOrderByRelevanceFieldEnum]
+
+
 export const OrderItemOrderByRelevanceFieldEnum = {
   id: 'id',
   orderId: 'orderId',
@@ -1988,6 +2087,7 @@ export type PaymentOrderByRelevanceFieldEnum = (typeof PaymentOrderByRelevanceFi
 export const CustomModeOrderOrderByRelevanceFieldEnum = {
   id: 'id',
   clientId: 'clientId',
+  guestClientId: 'guestClientId',
   type: 'type',
   genre: 'genre',
   pieces: 'pieces',
@@ -2254,6 +2354,7 @@ export type GlobalOmitConfig = {
   portfolioImage?: Prisma.PortfolioImageOmit
   blogPost?: Prisma.BlogPostOmit
   order?: Prisma.OrderOmit
+  guestClient?: Prisma.GuestClientOmit
   orderItem?: Prisma.OrderItemOmit
   shippingMethod?: Prisma.ShippingMethodOmit
   payment?: Prisma.PaymentOmit

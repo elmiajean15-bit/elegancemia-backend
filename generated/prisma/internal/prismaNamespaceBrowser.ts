@@ -62,6 +62,7 @@ export const ModelName = {
   PortfolioImage: 'PortfolioImage',
   BlogPost: 'BlogPost',
   Order: 'Order',
+  GuestClient: 'GuestClient',
   OrderItem: 'OrderItem',
   ShippingMethod: 'ShippingMethod',
   Payment: 'Payment',
@@ -106,6 +107,7 @@ export const ClientScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   city: 'city',
+  country: 'country',
   gender: 'gender',
   avatar: 'avatar',
   role: 'role',
@@ -171,6 +173,7 @@ export const ReviewScalarFieldEnum = {
   comment: 'comment',
   verified: 'verified',
   productId: 'productId',
+  clientId: 'clientId',
   createdAt: 'createdAt'
 } as const
 
@@ -230,6 +233,20 @@ export const OrderScalarFieldEnum = {
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
 
 
+export const GuestClientScalarFieldEnum = {
+  id: 'id',
+  nom: 'nom',
+  email: 'email',
+  telephone: 'telephone',
+  ville: 'ville',
+  pays: 'pays',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type GuestClientScalarFieldEnum = (typeof GuestClientScalarFieldEnum)[keyof typeof GuestClientScalarFieldEnum]
+
+
 export const OrderItemScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
@@ -273,6 +290,7 @@ export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeo
 export const CustomModeOrderScalarFieldEnum = {
   id: 'id',
   clientId: 'clientId',
+  guestClientId: 'guestClientId',
   type: 'type',
   genre: 'genre',
   pieces: 'pieces',
@@ -361,6 +379,7 @@ export const ClientOrderByRelevanceFieldEnum = {
   email: 'email',
   phone: 'phone',
   city: 'city',
+  country: 'country',
   avatar: 'avatar',
   password: 'password'
 } as const
@@ -411,7 +430,8 @@ export const ReviewOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
   comment: 'comment',
-  productId: 'productId'
+  productId: 'productId',
+  clientId: 'clientId'
 } as const
 
 export type ReviewOrderByRelevanceFieldEnum = (typeof ReviewOrderByRelevanceFieldEnum)[keyof typeof ReviewOrderByRelevanceFieldEnum]
@@ -461,6 +481,19 @@ export const OrderOrderByRelevanceFieldEnum = {
 export type OrderOrderByRelevanceFieldEnum = (typeof OrderOrderByRelevanceFieldEnum)[keyof typeof OrderOrderByRelevanceFieldEnum]
 
 
+export const GuestClientOrderByRelevanceFieldEnum = {
+  id: 'id',
+  nom: 'nom',
+  email: 'email',
+  telephone: 'telephone',
+  ville: 'ville',
+  pays: 'pays',
+  source: 'source'
+} as const
+
+export type GuestClientOrderByRelevanceFieldEnum = (typeof GuestClientOrderByRelevanceFieldEnum)[keyof typeof GuestClientOrderByRelevanceFieldEnum]
+
+
 export const OrderItemOrderByRelevanceFieldEnum = {
   id: 'id',
   orderId: 'orderId',
@@ -493,6 +526,7 @@ export type PaymentOrderByRelevanceFieldEnum = (typeof PaymentOrderByRelevanceFi
 export const CustomModeOrderOrderByRelevanceFieldEnum = {
   id: 'id',
   clientId: 'clientId',
+  guestClientId: 'guestClientId',
   type: 'type',
   genre: 'genre',
   pieces: 'pieces',

@@ -27,6 +27,7 @@ export type AggregateCustomModeOrder = {
 export type CustomModeOrderMinAggregateOutputType = {
   id: string | null
   clientId: string | null
+  guestClientId: string | null
   type: string | null
   genre: string | null
   pieces: string | null
@@ -57,6 +58,7 @@ export type CustomModeOrderMinAggregateOutputType = {
 export type CustomModeOrderMaxAggregateOutputType = {
   id: string | null
   clientId: string | null
+  guestClientId: string | null
   type: string | null
   genre: string | null
   pieces: string | null
@@ -87,6 +89,7 @@ export type CustomModeOrderMaxAggregateOutputType = {
 export type CustomModeOrderCountAggregateOutputType = {
   id: number
   clientId: number
+  guestClientId: number
   type: number
   genre: number
   pieces: number
@@ -119,6 +122,7 @@ export type CustomModeOrderCountAggregateOutputType = {
 export type CustomModeOrderMinAggregateInputType = {
   id?: true
   clientId?: true
+  guestClientId?: true
   type?: true
   genre?: true
   pieces?: true
@@ -149,6 +153,7 @@ export type CustomModeOrderMinAggregateInputType = {
 export type CustomModeOrderMaxAggregateInputType = {
   id?: true
   clientId?: true
+  guestClientId?: true
   type?: true
   genre?: true
   pieces?: true
@@ -179,6 +184,7 @@ export type CustomModeOrderMaxAggregateInputType = {
 export type CustomModeOrderCountAggregateInputType = {
   id?: true
   clientId?: true
+  guestClientId?: true
   type?: true
   genre?: true
   pieces?: true
@@ -282,6 +288,7 @@ export type CustomModeOrderGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type CustomModeOrderGroupByOutputType = {
   id: string
   clientId: string | null
+  guestClientId: string | null
   type: string
   genre: string
   pieces: string
@@ -333,6 +340,7 @@ export type CustomModeOrderWhereInput = {
   NOT?: Prisma.CustomModeOrderWhereInput | Prisma.CustomModeOrderWhereInput[]
   id?: Prisma.StringFilter<"CustomModeOrder"> | string
   clientId?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
+  guestClientId?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   type?: Prisma.StringFilter<"CustomModeOrder"> | string
   genre?: Prisma.StringFilter<"CustomModeOrder"> | string
   pieces?: Prisma.StringFilter<"CustomModeOrder"> | string
@@ -359,12 +367,14 @@ export type CustomModeOrderWhereInput = {
   status?: Prisma.StringFilter<"CustomModeOrder"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomModeOrder"> | Date | string
   client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
+  guestClient?: Prisma.XOR<Prisma.GuestClientNullableScalarRelationFilter, Prisma.GuestClientWhereInput> | null
   payments?: Prisma.PaymentListRelationFilter
 }
 
 export type CustomModeOrderOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrderInput | Prisma.SortOrder
+  guestClientId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   genre?: Prisma.SortOrder
   pieces?: Prisma.SortOrder
@@ -391,6 +401,7 @@ export type CustomModeOrderOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   client?: Prisma.ClientOrderByWithRelationInput
+  guestClient?: Prisma.GuestClientOrderByWithRelationInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   _relevance?: Prisma.CustomModeOrderOrderByRelevanceInput
 }
@@ -401,6 +412,7 @@ export type CustomModeOrderWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CustomModeOrderWhereInput[]
   NOT?: Prisma.CustomModeOrderWhereInput | Prisma.CustomModeOrderWhereInput[]
   clientId?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
+  guestClientId?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   type?: Prisma.StringFilter<"CustomModeOrder"> | string
   genre?: Prisma.StringFilter<"CustomModeOrder"> | string
   pieces?: Prisma.StringFilter<"CustomModeOrder"> | string
@@ -427,12 +439,14 @@ export type CustomModeOrderWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.StringFilter<"CustomModeOrder"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomModeOrder"> | Date | string
   client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
+  guestClient?: Prisma.XOR<Prisma.GuestClientNullableScalarRelationFilter, Prisma.GuestClientWhereInput> | null
   payments?: Prisma.PaymentListRelationFilter
 }, "id">
 
 export type CustomModeOrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrderInput | Prisma.SortOrder
+  guestClientId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   genre?: Prisma.SortOrder
   pieces?: Prisma.SortOrder
@@ -469,6 +483,7 @@ export type CustomModeOrderScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CustomModeOrderScalarWhereWithAggregatesInput | Prisma.CustomModeOrderScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"CustomModeOrder"> | string
   clientId?: Prisma.StringNullableWithAggregatesFilter<"CustomModeOrder"> | string | null
+  guestClientId?: Prisma.StringNullableWithAggregatesFilter<"CustomModeOrder"> | string | null
   type?: Prisma.StringWithAggregatesFilter<"CustomModeOrder"> | string
   genre?: Prisma.StringWithAggregatesFilter<"CustomModeOrder"> | string
   pieces?: Prisma.StringWithAggregatesFilter<"CustomModeOrder"> | string
@@ -524,12 +539,14 @@ export type CustomModeOrderCreateInput = {
   status?: string
   createdAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutCustomModeOrdersInput
+  guestClient?: Prisma.GuestClientCreateNestedOneWithoutOrdersInput
   payments?: Prisma.PaymentCreateNestedManyWithoutCustomModeOrderInput
 }
 
 export type CustomModeOrderUncheckedCreateInput = {
   id?: string
   clientId?: string | null
+  guestClientId?: string | null
   type: string
   genre: string
   pieces: string
@@ -586,12 +603,14 @@ export type CustomModeOrderUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneWithoutCustomModeOrdersNestedInput
+  guestClient?: Prisma.GuestClientUpdateOneWithoutOrdersNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutCustomModeOrderNestedInput
 }
 
 export type CustomModeOrderUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   genre?: Prisma.StringFieldUpdateOperationsInput | string
   pieces?: Prisma.StringFieldUpdateOperationsInput | string
@@ -623,6 +642,7 @@ export type CustomModeOrderUncheckedUpdateInput = {
 export type CustomModeOrderCreateManyInput = {
   id?: string
   clientId?: string | null
+  guestClientId?: string | null
   type: string
   genre: string
   pieces: string
@@ -682,6 +702,7 @@ export type CustomModeOrderUpdateManyMutationInput = {
 export type CustomModeOrderUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   genre?: Prisma.StringFieldUpdateOperationsInput | string
   pieces?: Prisma.StringFieldUpdateOperationsInput | string
@@ -733,6 +754,7 @@ export type CustomModeOrderOrderByRelevanceInput = {
 export type CustomModeOrderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  guestClientId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   genre?: Prisma.SortOrder
   pieces?: Prisma.SortOrder
@@ -763,6 +785,7 @@ export type CustomModeOrderCountOrderByAggregateInput = {
 export type CustomModeOrderMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  guestClientId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   genre?: Prisma.SortOrder
   pieces?: Prisma.SortOrder
@@ -793,6 +816,7 @@ export type CustomModeOrderMaxOrderByAggregateInput = {
 export type CustomModeOrderMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  guestClientId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   genre?: Prisma.SortOrder
   pieces?: Prisma.SortOrder
@@ -862,6 +886,48 @@ export type CustomModeOrderUncheckedUpdateManyWithoutClientNestedInput = {
   deleteMany?: Prisma.CustomModeOrderScalarWhereInput | Prisma.CustomModeOrderScalarWhereInput[]
 }
 
+export type CustomModeOrderCreateNestedManyWithoutGuestClientInput = {
+  create?: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutGuestClientInput, Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput> | Prisma.CustomModeOrderCreateWithoutGuestClientInput[] | Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput[]
+  connectOrCreate?: Prisma.CustomModeOrderCreateOrConnectWithoutGuestClientInput | Prisma.CustomModeOrderCreateOrConnectWithoutGuestClientInput[]
+  createMany?: Prisma.CustomModeOrderCreateManyGuestClientInputEnvelope
+  connect?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+}
+
+export type CustomModeOrderUncheckedCreateNestedManyWithoutGuestClientInput = {
+  create?: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutGuestClientInput, Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput> | Prisma.CustomModeOrderCreateWithoutGuestClientInput[] | Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput[]
+  connectOrCreate?: Prisma.CustomModeOrderCreateOrConnectWithoutGuestClientInput | Prisma.CustomModeOrderCreateOrConnectWithoutGuestClientInput[]
+  createMany?: Prisma.CustomModeOrderCreateManyGuestClientInputEnvelope
+  connect?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+}
+
+export type CustomModeOrderUpdateManyWithoutGuestClientNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutGuestClientInput, Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput> | Prisma.CustomModeOrderCreateWithoutGuestClientInput[] | Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput[]
+  connectOrCreate?: Prisma.CustomModeOrderCreateOrConnectWithoutGuestClientInput | Prisma.CustomModeOrderCreateOrConnectWithoutGuestClientInput[]
+  upsert?: Prisma.CustomModeOrderUpsertWithWhereUniqueWithoutGuestClientInput | Prisma.CustomModeOrderUpsertWithWhereUniqueWithoutGuestClientInput[]
+  createMany?: Prisma.CustomModeOrderCreateManyGuestClientInputEnvelope
+  set?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+  disconnect?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+  delete?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+  connect?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+  update?: Prisma.CustomModeOrderUpdateWithWhereUniqueWithoutGuestClientInput | Prisma.CustomModeOrderUpdateWithWhereUniqueWithoutGuestClientInput[]
+  updateMany?: Prisma.CustomModeOrderUpdateManyWithWhereWithoutGuestClientInput | Prisma.CustomModeOrderUpdateManyWithWhereWithoutGuestClientInput[]
+  deleteMany?: Prisma.CustomModeOrderScalarWhereInput | Prisma.CustomModeOrderScalarWhereInput[]
+}
+
+export type CustomModeOrderUncheckedUpdateManyWithoutGuestClientNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutGuestClientInput, Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput> | Prisma.CustomModeOrderCreateWithoutGuestClientInput[] | Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput[]
+  connectOrCreate?: Prisma.CustomModeOrderCreateOrConnectWithoutGuestClientInput | Prisma.CustomModeOrderCreateOrConnectWithoutGuestClientInput[]
+  upsert?: Prisma.CustomModeOrderUpsertWithWhereUniqueWithoutGuestClientInput | Prisma.CustomModeOrderUpsertWithWhereUniqueWithoutGuestClientInput[]
+  createMany?: Prisma.CustomModeOrderCreateManyGuestClientInputEnvelope
+  set?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+  disconnect?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+  delete?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+  connect?: Prisma.CustomModeOrderWhereUniqueInput | Prisma.CustomModeOrderWhereUniqueInput[]
+  update?: Prisma.CustomModeOrderUpdateWithWhereUniqueWithoutGuestClientInput | Prisma.CustomModeOrderUpdateWithWhereUniqueWithoutGuestClientInput[]
+  updateMany?: Prisma.CustomModeOrderUpdateManyWithWhereWithoutGuestClientInput | Prisma.CustomModeOrderUpdateManyWithWhereWithoutGuestClientInput[]
+  deleteMany?: Prisma.CustomModeOrderScalarWhereInput | Prisma.CustomModeOrderScalarWhereInput[]
+}
+
 export type CustomModeOrderCreateNestedOneWithoutPaymentsInput = {
   create?: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutPaymentsInput, Prisma.CustomModeOrderUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.CustomModeOrderCreateOrConnectWithoutPaymentsInput
@@ -905,11 +971,13 @@ export type CustomModeOrderCreateWithoutClientInput = {
   source?: string | null
   status?: string
   createdAt?: Date | string
+  guestClient?: Prisma.GuestClientCreateNestedOneWithoutOrdersInput
   payments?: Prisma.PaymentCreateNestedManyWithoutCustomModeOrderInput
 }
 
 export type CustomModeOrderUncheckedCreateWithoutClientInput = {
   id?: string
+  guestClientId?: string | null
   type: string
   genre: string
   pieces: string
@@ -970,6 +1038,7 @@ export type CustomModeOrderScalarWhereInput = {
   NOT?: Prisma.CustomModeOrderScalarWhereInput | Prisma.CustomModeOrderScalarWhereInput[]
   id?: Prisma.StringFilter<"CustomModeOrder"> | string
   clientId?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
+  guestClientId?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   type?: Prisma.StringFilter<"CustomModeOrder"> | string
   genre?: Prisma.StringFilter<"CustomModeOrder"> | string
   pieces?: Prisma.StringFilter<"CustomModeOrder"> | string
@@ -995,6 +1064,94 @@ export type CustomModeOrderScalarWhereInput = {
   source?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   status?: Prisma.StringFilter<"CustomModeOrder"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomModeOrder"> | Date | string
+}
+
+export type CustomModeOrderCreateWithoutGuestClientInput = {
+  id?: string
+  type: string
+  genre: string
+  pieces: string
+  occasion: string
+  style: string
+  couleur: string
+  matiere: string
+  complexite: string
+  inspiration: string
+  taille: string
+  morphologie: string
+  finitions: string
+  accessoires: string
+  essayage: string
+  budget: string
+  delai: string
+  livraison: string
+  nom?: string | null
+  email?: string | null
+  telephone?: string | null
+  ville?: string | null
+  pays?: string | null
+  source?: string | null
+  status?: string
+  createdAt?: Date | string
+  client?: Prisma.ClientCreateNestedOneWithoutCustomModeOrdersInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCustomModeOrderInput
+}
+
+export type CustomModeOrderUncheckedCreateWithoutGuestClientInput = {
+  id?: string
+  clientId?: string | null
+  type: string
+  genre: string
+  pieces: string
+  occasion: string
+  style: string
+  couleur: string
+  matiere: string
+  complexite: string
+  inspiration: string
+  taille: string
+  morphologie: string
+  finitions: string
+  accessoires: string
+  essayage: string
+  budget: string
+  delai: string
+  livraison: string
+  nom?: string | null
+  email?: string | null
+  telephone?: string | null
+  ville?: string | null
+  pays?: string | null
+  source?: string | null
+  status?: string
+  createdAt?: Date | string
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomModeOrderInput
+}
+
+export type CustomModeOrderCreateOrConnectWithoutGuestClientInput = {
+  where: Prisma.CustomModeOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutGuestClientInput, Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput>
+}
+
+export type CustomModeOrderCreateManyGuestClientInputEnvelope = {
+  data: Prisma.CustomModeOrderCreateManyGuestClientInput | Prisma.CustomModeOrderCreateManyGuestClientInput[]
+  skipDuplicates?: boolean
+}
+
+export type CustomModeOrderUpsertWithWhereUniqueWithoutGuestClientInput = {
+  where: Prisma.CustomModeOrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.CustomModeOrderUpdateWithoutGuestClientInput, Prisma.CustomModeOrderUncheckedUpdateWithoutGuestClientInput>
+  create: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutGuestClientInput, Prisma.CustomModeOrderUncheckedCreateWithoutGuestClientInput>
+}
+
+export type CustomModeOrderUpdateWithWhereUniqueWithoutGuestClientInput = {
+  where: Prisma.CustomModeOrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.CustomModeOrderUpdateWithoutGuestClientInput, Prisma.CustomModeOrderUncheckedUpdateWithoutGuestClientInput>
+}
+
+export type CustomModeOrderUpdateManyWithWhereWithoutGuestClientInput = {
+  where: Prisma.CustomModeOrderScalarWhereInput
+  data: Prisma.XOR<Prisma.CustomModeOrderUpdateManyMutationInput, Prisma.CustomModeOrderUncheckedUpdateManyWithoutGuestClientInput>
 }
 
 export type CustomModeOrderCreateWithoutPaymentsInput = {
@@ -1025,11 +1182,13 @@ export type CustomModeOrderCreateWithoutPaymentsInput = {
   status?: string
   createdAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutCustomModeOrdersInput
+  guestClient?: Prisma.GuestClientCreateNestedOneWithoutOrdersInput
 }
 
 export type CustomModeOrderUncheckedCreateWithoutPaymentsInput = {
   id?: string
   clientId?: string | null
+  guestClientId?: string | null
   type: string
   genre: string
   pieces: string
@@ -1101,11 +1260,13 @@ export type CustomModeOrderUpdateWithoutPaymentsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneWithoutCustomModeOrdersNestedInput
+  guestClient?: Prisma.GuestClientUpdateOneWithoutOrdersNestedInput
 }
 
 export type CustomModeOrderUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   genre?: Prisma.StringFieldUpdateOperationsInput | string
   pieces?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1135,6 +1296,7 @@ export type CustomModeOrderUncheckedUpdateWithoutPaymentsInput = {
 
 export type CustomModeOrderCreateManyClientInput = {
   id?: string
+  guestClientId?: string | null
   type: string
   genre: string
   pieces: string
@@ -1189,11 +1351,13 @@ export type CustomModeOrderUpdateWithoutClientInput = {
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guestClient?: Prisma.GuestClientUpdateOneWithoutOrdersNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutCustomModeOrderNestedInput
 }
 
 export type CustomModeOrderUncheckedUpdateWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  guestClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   genre?: Prisma.StringFieldUpdateOperationsInput | string
   pieces?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1224,6 +1388,129 @@ export type CustomModeOrderUncheckedUpdateWithoutClientInput = {
 
 export type CustomModeOrderUncheckedUpdateManyWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  guestClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  genre?: Prisma.StringFieldUpdateOperationsInput | string
+  pieces?: Prisma.StringFieldUpdateOperationsInput | string
+  occasion?: Prisma.StringFieldUpdateOperationsInput | string
+  style?: Prisma.StringFieldUpdateOperationsInput | string
+  couleur?: Prisma.StringFieldUpdateOperationsInput | string
+  matiere?: Prisma.StringFieldUpdateOperationsInput | string
+  complexite?: Prisma.StringFieldUpdateOperationsInput | string
+  inspiration?: Prisma.StringFieldUpdateOperationsInput | string
+  taille?: Prisma.StringFieldUpdateOperationsInput | string
+  morphologie?: Prisma.StringFieldUpdateOperationsInput | string
+  finitions?: Prisma.StringFieldUpdateOperationsInput | string
+  accessoires?: Prisma.StringFieldUpdateOperationsInput | string
+  essayage?: Prisma.StringFieldUpdateOperationsInput | string
+  budget?: Prisma.StringFieldUpdateOperationsInput | string
+  delai?: Prisma.StringFieldUpdateOperationsInput | string
+  livraison?: Prisma.StringFieldUpdateOperationsInput | string
+  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CustomModeOrderCreateManyGuestClientInput = {
+  id?: string
+  clientId?: string | null
+  type: string
+  genre: string
+  pieces: string
+  occasion: string
+  style: string
+  couleur: string
+  matiere: string
+  complexite: string
+  inspiration: string
+  taille: string
+  morphologie: string
+  finitions: string
+  accessoires: string
+  essayage: string
+  budget: string
+  delai: string
+  livraison: string
+  nom?: string | null
+  email?: string | null
+  telephone?: string | null
+  ville?: string | null
+  pays?: string | null
+  source?: string | null
+  status?: string
+  createdAt?: Date | string
+}
+
+export type CustomModeOrderUpdateWithoutGuestClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  genre?: Prisma.StringFieldUpdateOperationsInput | string
+  pieces?: Prisma.StringFieldUpdateOperationsInput | string
+  occasion?: Prisma.StringFieldUpdateOperationsInput | string
+  style?: Prisma.StringFieldUpdateOperationsInput | string
+  couleur?: Prisma.StringFieldUpdateOperationsInput | string
+  matiere?: Prisma.StringFieldUpdateOperationsInput | string
+  complexite?: Prisma.StringFieldUpdateOperationsInput | string
+  inspiration?: Prisma.StringFieldUpdateOperationsInput | string
+  taille?: Prisma.StringFieldUpdateOperationsInput | string
+  morphologie?: Prisma.StringFieldUpdateOperationsInput | string
+  finitions?: Prisma.StringFieldUpdateOperationsInput | string
+  accessoires?: Prisma.StringFieldUpdateOperationsInput | string
+  essayage?: Prisma.StringFieldUpdateOperationsInput | string
+  budget?: Prisma.StringFieldUpdateOperationsInput | string
+  delai?: Prisma.StringFieldUpdateOperationsInput | string
+  livraison?: Prisma.StringFieldUpdateOperationsInput | string
+  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneWithoutCustomModeOrdersNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCustomModeOrderNestedInput
+}
+
+export type CustomModeOrderUncheckedUpdateWithoutGuestClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  genre?: Prisma.StringFieldUpdateOperationsInput | string
+  pieces?: Prisma.StringFieldUpdateOperationsInput | string
+  occasion?: Prisma.StringFieldUpdateOperationsInput | string
+  style?: Prisma.StringFieldUpdateOperationsInput | string
+  couleur?: Prisma.StringFieldUpdateOperationsInput | string
+  matiere?: Prisma.StringFieldUpdateOperationsInput | string
+  complexite?: Prisma.StringFieldUpdateOperationsInput | string
+  inspiration?: Prisma.StringFieldUpdateOperationsInput | string
+  taille?: Prisma.StringFieldUpdateOperationsInput | string
+  morphologie?: Prisma.StringFieldUpdateOperationsInput | string
+  finitions?: Prisma.StringFieldUpdateOperationsInput | string
+  accessoires?: Prisma.StringFieldUpdateOperationsInput | string
+  essayage?: Prisma.StringFieldUpdateOperationsInput | string
+  budget?: Prisma.StringFieldUpdateOperationsInput | string
+  delai?: Prisma.StringFieldUpdateOperationsInput | string
+  livraison?: Prisma.StringFieldUpdateOperationsInput | string
+  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomModeOrderNestedInput
+}
+
+export type CustomModeOrderUncheckedUpdateManyWithoutGuestClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.StringFieldUpdateOperationsInput | string
   genre?: Prisma.StringFieldUpdateOperationsInput | string
   pieces?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1285,6 +1572,7 @@ export type CustomModeOrderCountOutputTypeCountPaymentsArgs<ExtArgs extends runt
 export type CustomModeOrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   clientId?: boolean
+  guestClientId?: boolean
   type?: boolean
   genre?: boolean
   pieces?: boolean
@@ -1311,6 +1599,7 @@ export type CustomModeOrderSelect<ExtArgs extends runtime.Types.Extensions.Inter
   status?: boolean
   createdAt?: boolean
   client?: boolean | Prisma.CustomModeOrder$clientArgs<ExtArgs>
+  guestClient?: boolean | Prisma.CustomModeOrder$guestClientArgs<ExtArgs>
   payments?: boolean | Prisma.CustomModeOrder$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomModeOrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customModeOrder"]>
@@ -1320,6 +1609,7 @@ export type CustomModeOrderSelect<ExtArgs extends runtime.Types.Extensions.Inter
 export type CustomModeOrderSelectScalar = {
   id?: boolean
   clientId?: boolean
+  guestClientId?: boolean
   type?: boolean
   genre?: boolean
   pieces?: boolean
@@ -1347,9 +1637,10 @@ export type CustomModeOrderSelectScalar = {
   createdAt?: boolean
 }
 
-export type CustomModeOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clientId" | "type" | "genre" | "pieces" | "occasion" | "style" | "couleur" | "matiere" | "complexite" | "inspiration" | "taille" | "morphologie" | "finitions" | "accessoires" | "essayage" | "budget" | "delai" | "livraison" | "nom" | "email" | "telephone" | "ville" | "pays" | "source" | "status" | "createdAt", ExtArgs["result"]["customModeOrder"]>
+export type CustomModeOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clientId" | "guestClientId" | "type" | "genre" | "pieces" | "occasion" | "style" | "couleur" | "matiere" | "complexite" | "inspiration" | "taille" | "morphologie" | "finitions" | "accessoires" | "essayage" | "budget" | "delai" | "livraison" | "nom" | "email" | "telephone" | "ville" | "pays" | "source" | "status" | "createdAt", ExtArgs["result"]["customModeOrder"]>
 export type CustomModeOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.CustomModeOrder$clientArgs<ExtArgs>
+  guestClient?: boolean | Prisma.CustomModeOrder$guestClientArgs<ExtArgs>
   payments?: boolean | Prisma.CustomModeOrder$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomModeOrderCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1358,11 +1649,13 @@ export type $CustomModeOrderPayload<ExtArgs extends runtime.Types.Extensions.Int
   name: "CustomModeOrder"
   objects: {
     client: Prisma.$ClientPayload<ExtArgs> | null
+    guestClient: Prisma.$GuestClientPayload<ExtArgs> | null
     payments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     clientId: string | null
+    guestClientId: string | null
     type: string
     genre: string
     pieces: string
@@ -1729,6 +2022,7 @@ readonly fields: CustomModeOrderFieldRefs;
 export interface Prisma__CustomModeOrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   client<T extends Prisma.CustomModeOrder$clientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomModeOrder$clientArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  guestClient<T extends Prisma.CustomModeOrder$guestClientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomModeOrder$guestClientArgs<ExtArgs>>): Prisma.Prisma__GuestClientClient<runtime.Types.Result.GetResult<Prisma.$GuestClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   payments<T extends Prisma.CustomModeOrder$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomModeOrder$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1761,6 +2055,7 @@ export interface Prisma__CustomModeOrderClient<T, Null = never, ExtArgs extends 
 export interface CustomModeOrderFieldRefs {
   readonly id: Prisma.FieldRef<"CustomModeOrder", 'String'>
   readonly clientId: Prisma.FieldRef<"CustomModeOrder", 'String'>
+  readonly guestClientId: Prisma.FieldRef<"CustomModeOrder", 'String'>
   readonly type: Prisma.FieldRef<"CustomModeOrder", 'String'>
   readonly genre: Prisma.FieldRef<"CustomModeOrder", 'String'>
   readonly pieces: Prisma.FieldRef<"CustomModeOrder", 'String'>
@@ -2150,6 +2445,25 @@ export type CustomModeOrder$clientArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.ClientInclude<ExtArgs> | null
   where?: Prisma.ClientWhereInput
+}
+
+/**
+ * CustomModeOrder.guestClient
+ */
+export type CustomModeOrder$guestClientArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuestClient
+   */
+  select?: Prisma.GuestClientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuestClient
+   */
+  omit?: Prisma.GuestClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestClientInclude<ExtArgs> | null
+  where?: Prisma.GuestClientWhereInput
 }
 
 /**

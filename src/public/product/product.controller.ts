@@ -2,6 +2,7 @@
 
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { PublicProductService } from './product.service';
+import { ProductCategory } from 'generated/prisma/enums';
 
 @Controller('public/products')
 export class PublicProductController {
@@ -23,5 +24,13 @@ export class PublicProductController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.service.findOneById(id);
+  }
+
+  @Get('related')
+  findRelated(
+    @Query('category') category: ProductCategory,
+    @Query('excludeId') excludeId?: string,
+  ) {
+    return this.service.findRelated(category, excludeId);
   }
 }

@@ -30,6 +30,7 @@ export type ClientMinAggregateOutputType = {
   email: string | null
   phone: string | null
   city: string | null
+  country: string | null
   gender: $Enums.ClientGender | null
   avatar: string | null
   role: $Enums.ClientRole | null
@@ -44,6 +45,7 @@ export type ClientMaxAggregateOutputType = {
   email: string | null
   phone: string | null
   city: string | null
+  country: string | null
   gender: $Enums.ClientGender | null
   avatar: string | null
   role: $Enums.ClientRole | null
@@ -58,6 +60,7 @@ export type ClientCountAggregateOutputType = {
   email: number
   phone: number
   city: number
+  country: number
   gender: number
   avatar: number
   role: number
@@ -74,6 +77,7 @@ export type ClientMinAggregateInputType = {
   email?: true
   phone?: true
   city?: true
+  country?: true
   gender?: true
   avatar?: true
   role?: true
@@ -88,6 +92,7 @@ export type ClientMaxAggregateInputType = {
   email?: true
   phone?: true
   city?: true
+  country?: true
   gender?: true
   avatar?: true
   role?: true
@@ -102,6 +107,7 @@ export type ClientCountAggregateInputType = {
   email?: true
   phone?: true
   city?: true
+  country?: true
   gender?: true
   avatar?: true
   role?: true
@@ -189,6 +195,7 @@ export type ClientGroupByOutputType = {
   email: string
   phone: string
   city: string | null
+  country: string | null
   gender: $Enums.ClientGender | null
   avatar: string | null
   role: $Enums.ClientRole
@@ -224,6 +231,7 @@ export type ClientWhereInput = {
   email?: Prisma.StringFilter<"Client"> | string
   phone?: Prisma.StringFilter<"Client"> | string
   city?: Prisma.StringNullableFilter<"Client"> | string | null
+  country?: Prisma.StringNullableFilter<"Client"> | string | null
   gender?: Prisma.EnumClientGenderNullableFilter<"Client"> | $Enums.ClientGender | null
   avatar?: Prisma.StringNullableFilter<"Client"> | string | null
   role?: Prisma.EnumClientRoleFilter<"Client"> | $Enums.ClientRole
@@ -232,6 +240,7 @@ export type ClientWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
   orders?: Prisma.OrderListRelationFilter
   customModeOrders?: Prisma.CustomModeOrderListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type ClientOrderByWithRelationInput = {
@@ -240,6 +249,7 @@ export type ClientOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -248,6 +258,7 @@ export type ClientOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   orders?: Prisma.OrderOrderByRelationAggregateInput
   customModeOrders?: Prisma.CustomModeOrderOrderByRelationAggregateInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
   _relevance?: Prisma.ClientOrderByRelevanceInput
 }
 
@@ -260,6 +271,7 @@ export type ClientWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Client"> | string
   phone?: Prisma.StringFilter<"Client"> | string
   city?: Prisma.StringNullableFilter<"Client"> | string | null
+  country?: Prisma.StringNullableFilter<"Client"> | string | null
   gender?: Prisma.EnumClientGenderNullableFilter<"Client"> | $Enums.ClientGender | null
   avatar?: Prisma.StringNullableFilter<"Client"> | string | null
   role?: Prisma.EnumClientRoleFilter<"Client"> | $Enums.ClientRole
@@ -268,6 +280,7 @@ export type ClientWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
   orders?: Prisma.OrderListRelationFilter
   customModeOrders?: Prisma.CustomModeOrderListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
 }, "id" | "email">
 
 export type ClientOrderByWithAggregationInput = {
@@ -276,6 +289,7 @@ export type ClientOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -296,6 +310,7 @@ export type ClientScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Client"> | string
   phone?: Prisma.StringWithAggregatesFilter<"Client"> | string
   city?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   gender?: Prisma.EnumClientGenderNullableWithAggregatesFilter<"Client"> | $Enums.ClientGender | null
   avatar?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   role?: Prisma.EnumClientRoleWithAggregatesFilter<"Client"> | $Enums.ClientRole
@@ -310,6 +325,7 @@ export type ClientCreateInput = {
   email: string
   phone: string
   city?: string | null
+  country?: string | null
   gender?: $Enums.ClientGender | null
   avatar?: string | null
   role?: $Enums.ClientRole
@@ -318,6 +334,7 @@ export type ClientCreateInput = {
   createdAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutClientInput
   customModeOrders?: Prisma.CustomModeOrderCreateNestedManyWithoutClientInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutClientInput
 }
 
 export type ClientUncheckedCreateInput = {
@@ -326,6 +343,7 @@ export type ClientUncheckedCreateInput = {
   email: string
   phone: string
   city?: string | null
+  country?: string | null
   gender?: $Enums.ClientGender | null
   avatar?: string | null
   role?: $Enums.ClientRole
@@ -334,6 +352,7 @@ export type ClientUncheckedCreateInput = {
   createdAt?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutClientInput
   customModeOrders?: Prisma.CustomModeOrderUncheckedCreateNestedManyWithoutClientInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutClientInput
 }
 
 export type ClientUpdateInput = {
@@ -342,6 +361,7 @@ export type ClientUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
@@ -350,6 +370,7 @@ export type ClientUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutClientNestedInput
   customModeOrders?: Prisma.CustomModeOrderUpdateManyWithoutClientNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutClientNestedInput
 }
 
 export type ClientUncheckedUpdateInput = {
@@ -358,6 +379,7 @@ export type ClientUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
@@ -366,6 +388,7 @@ export type ClientUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutClientNestedInput
   customModeOrders?: Prisma.CustomModeOrderUncheckedUpdateManyWithoutClientNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutClientNestedInput
 }
 
 export type ClientCreateManyInput = {
@@ -374,6 +397,7 @@ export type ClientCreateManyInput = {
   email: string
   phone: string
   city?: string | null
+  country?: string | null
   gender?: $Enums.ClientGender | null
   avatar?: string | null
   role?: $Enums.ClientRole
@@ -388,6 +412,7 @@ export type ClientUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
@@ -402,6 +427,7 @@ export type ClientUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
@@ -422,6 +448,7 @@ export type ClientCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -436,6 +463,7 @@ export type ClientMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -450,6 +478,7 @@ export type ClientMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   city?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   avatar?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -458,14 +487,14 @@ export type ClientMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
 }
 
-export type ClientScalarRelationFilter = {
-  is?: Prisma.ClientWhereInput
-  isNot?: Prisma.ClientWhereInput
-}
-
 export type ClientNullableScalarRelationFilter = {
   is?: Prisma.ClientWhereInput | null
   isNot?: Prisma.ClientWhereInput | null
+}
+
+export type ClientScalarRelationFilter = {
+  is?: Prisma.ClientWhereInput
+  isNot?: Prisma.ClientWhereInput
 }
 
 export type NullableEnumClientGenderFieldUpdateOperationsInput = {
@@ -474,6 +503,22 @@ export type NullableEnumClientGenderFieldUpdateOperationsInput = {
 
 export type EnumClientRoleFieldUpdateOperationsInput = {
   set?: $Enums.ClientRole
+}
+
+export type ClientCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutReviewsInput, Prisma.ClientUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.ClientWhereUniqueInput
+}
+
+export type ClientUpdateOneWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientCreateWithoutReviewsInput, Prisma.ClientUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.ClientCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.ClientUpsertWithoutReviewsInput
+  disconnect?: Prisma.ClientWhereInput | boolean
+  delete?: Prisma.ClientWhereInput | boolean
+  connect?: Prisma.ClientWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClientUpdateToOneWithWhereWithoutReviewsInput, Prisma.ClientUpdateWithoutReviewsInput>, Prisma.ClientUncheckedUpdateWithoutReviewsInput>
 }
 
 export type ClientCreateNestedOneWithoutOrdersInput = {
@@ -506,12 +551,97 @@ export type ClientUpdateOneWithoutCustomModeOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClientUpdateToOneWithWhereWithoutCustomModeOrdersInput, Prisma.ClientUpdateWithoutCustomModeOrdersInput>, Prisma.ClientUncheckedUpdateWithoutCustomModeOrdersInput>
 }
 
+export type ClientCreateWithoutReviewsInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  city?: string | null
+  country?: string | null
+  gender?: $Enums.ClientGender | null
+  avatar?: string | null
+  role?: $Enums.ClientRole
+  isActive?: boolean
+  password: string
+  createdAt?: Date | string
+  orders?: Prisma.OrderCreateNestedManyWithoutClientInput
+  customModeOrders?: Prisma.CustomModeOrderCreateNestedManyWithoutClientInput
+}
+
+export type ClientUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  city?: string | null
+  country?: string | null
+  gender?: $Enums.ClientGender | null
+  avatar?: string | null
+  role?: $Enums.ClientRole
+  isActive?: boolean
+  password: string
+  createdAt?: Date | string
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutClientInput
+  customModeOrders?: Prisma.CustomModeOrderUncheckedCreateNestedManyWithoutClientInput
+}
+
+export type ClientCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.ClientWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClientCreateWithoutReviewsInput, Prisma.ClientUncheckedCreateWithoutReviewsInput>
+}
+
+export type ClientUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.ClientUpdateWithoutReviewsInput, Prisma.ClientUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.ClientCreateWithoutReviewsInput, Prisma.ClientUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.ClientWhereInput
+}
+
+export type ClientUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.ClientWhereInput
+  data: Prisma.XOR<Prisma.ClientUpdateWithoutReviewsInput, Prisma.ClientUncheckedUpdateWithoutReviewsInput>
+}
+
+export type ClientUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.OrderUpdateManyWithoutClientNestedInput
+  customModeOrders?: Prisma.CustomModeOrderUpdateManyWithoutClientNestedInput
+}
+
+export type ClientUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutClientNestedInput
+  customModeOrders?: Prisma.CustomModeOrderUncheckedUpdateManyWithoutClientNestedInput
+}
+
 export type ClientCreateWithoutOrdersInput = {
   id?: string
   name: string
   email: string
   phone: string
   city?: string | null
+  country?: string | null
   gender?: $Enums.ClientGender | null
   avatar?: string | null
   role?: $Enums.ClientRole
@@ -519,6 +649,7 @@ export type ClientCreateWithoutOrdersInput = {
   password: string
   createdAt?: Date | string
   customModeOrders?: Prisma.CustomModeOrderCreateNestedManyWithoutClientInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutClientInput
 }
 
 export type ClientUncheckedCreateWithoutOrdersInput = {
@@ -527,6 +658,7 @@ export type ClientUncheckedCreateWithoutOrdersInput = {
   email: string
   phone: string
   city?: string | null
+  country?: string | null
   gender?: $Enums.ClientGender | null
   avatar?: string | null
   role?: $Enums.ClientRole
@@ -534,6 +666,7 @@ export type ClientUncheckedCreateWithoutOrdersInput = {
   password: string
   createdAt?: Date | string
   customModeOrders?: Prisma.CustomModeOrderUncheckedCreateNestedManyWithoutClientInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutClientInput
 }
 
 export type ClientCreateOrConnectWithoutOrdersInput = {
@@ -558,6 +691,7 @@ export type ClientUpdateWithoutOrdersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
@@ -565,6 +699,7 @@ export type ClientUpdateWithoutOrdersInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customModeOrders?: Prisma.CustomModeOrderUpdateManyWithoutClientNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutClientNestedInput
 }
 
 export type ClientUncheckedUpdateWithoutOrdersInput = {
@@ -573,6 +708,7 @@ export type ClientUncheckedUpdateWithoutOrdersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
@@ -580,6 +716,7 @@ export type ClientUncheckedUpdateWithoutOrdersInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customModeOrders?: Prisma.CustomModeOrderUncheckedUpdateManyWithoutClientNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutClientNestedInput
 }
 
 export type ClientCreateWithoutCustomModeOrdersInput = {
@@ -588,6 +725,7 @@ export type ClientCreateWithoutCustomModeOrdersInput = {
   email: string
   phone: string
   city?: string | null
+  country?: string | null
   gender?: $Enums.ClientGender | null
   avatar?: string | null
   role?: $Enums.ClientRole
@@ -595,6 +733,7 @@ export type ClientCreateWithoutCustomModeOrdersInput = {
   password: string
   createdAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutClientInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutClientInput
 }
 
 export type ClientUncheckedCreateWithoutCustomModeOrdersInput = {
@@ -603,6 +742,7 @@ export type ClientUncheckedCreateWithoutCustomModeOrdersInput = {
   email: string
   phone: string
   city?: string | null
+  country?: string | null
   gender?: $Enums.ClientGender | null
   avatar?: string | null
   role?: $Enums.ClientRole
@@ -610,6 +750,7 @@ export type ClientUncheckedCreateWithoutCustomModeOrdersInput = {
   password: string
   createdAt?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutClientInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutClientInput
 }
 
 export type ClientCreateOrConnectWithoutCustomModeOrdersInput = {
@@ -634,6 +775,7 @@ export type ClientUpdateWithoutCustomModeOrdersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
@@ -641,6 +783,7 @@ export type ClientUpdateWithoutCustomModeOrdersInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutClientNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutClientNestedInput
 }
 
 export type ClientUncheckedUpdateWithoutCustomModeOrdersInput = {
@@ -649,6 +792,7 @@ export type ClientUncheckedUpdateWithoutCustomModeOrdersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.NullableEnumClientGenderFieldUpdateOperationsInput | $Enums.ClientGender | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
@@ -656,6 +800,7 @@ export type ClientUncheckedUpdateWithoutCustomModeOrdersInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutClientNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutClientNestedInput
 }
 
 
@@ -666,11 +811,13 @@ export type ClientUncheckedUpdateWithoutCustomModeOrdersInput = {
 export type ClientCountOutputType = {
   orders: number
   customModeOrders: number
+  reviews: number
 }
 
 export type ClientCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orders?: boolean | ClientCountOutputTypeCountOrdersArgs
   customModeOrders?: boolean | ClientCountOutputTypeCountCustomModeOrdersArgs
+  reviews?: boolean | ClientCountOutputTypeCountReviewsArgs
 }
 
 /**
@@ -697,6 +844,13 @@ export type ClientCountOutputTypeCountCustomModeOrdersArgs<ExtArgs extends runti
   where?: Prisma.CustomModeOrderWhereInput
 }
 
+/**
+ * ClientCountOutputType without action
+ */
+export type ClientCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
 
 export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -704,6 +858,7 @@ export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   email?: boolean
   phone?: boolean
   city?: boolean
+  country?: boolean
   gender?: boolean
   avatar?: boolean
   role?: boolean
@@ -712,6 +867,7 @@ export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   createdAt?: boolean
   orders?: boolean | Prisma.Client$ordersArgs<ExtArgs>
   customModeOrders?: boolean | Prisma.Client$customModeOrdersArgs<ExtArgs>
+  reviews?: boolean | Prisma.Client$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["client"]>
 
@@ -723,6 +879,7 @@ export type ClientSelectScalar = {
   email?: boolean
   phone?: boolean
   city?: boolean
+  country?: boolean
   gender?: boolean
   avatar?: boolean
   role?: boolean
@@ -731,10 +888,11 @@ export type ClientSelectScalar = {
   createdAt?: boolean
 }
 
-export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "city" | "gender" | "avatar" | "role" | "isActive" | "password" | "createdAt", ExtArgs["result"]["client"]>
+export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "city" | "country" | "gender" | "avatar" | "role" | "isActive" | "password" | "createdAt", ExtArgs["result"]["client"]>
 export type ClientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orders?: boolean | Prisma.Client$ordersArgs<ExtArgs>
   customModeOrders?: boolean | Prisma.Client$customModeOrdersArgs<ExtArgs>
+  reviews?: boolean | Prisma.Client$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -743,6 +901,7 @@ export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     orders: Prisma.$OrderPayload<ExtArgs>[]
     customModeOrders: Prisma.$CustomModeOrderPayload<ExtArgs>[]
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -750,6 +909,7 @@ export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     email: string
     phone: string
     city: string | null
+    country: string | null
     gender: $Enums.ClientGender | null
     avatar: string | null
     role: $Enums.ClientRole
@@ -1098,6 +1258,7 @@ export interface Prisma__ClientClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   orders<T extends Prisma.Client$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customModeOrders<T extends Prisma.Client$customModeOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$customModeOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomModeOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.Client$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Client$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1132,6 +1293,7 @@ export interface ClientFieldRefs {
   readonly email: Prisma.FieldRef<"Client", 'String'>
   readonly phone: Prisma.FieldRef<"Client", 'String'>
   readonly city: Prisma.FieldRef<"Client", 'String'>
+  readonly country: Prisma.FieldRef<"Client", 'String'>
   readonly gender: Prisma.FieldRef<"Client", 'ClientGender'>
   readonly avatar: Prisma.FieldRef<"Client", 'String'>
   readonly role: Prisma.FieldRef<"Client", 'ClientRole'>
@@ -1531,6 +1693,30 @@ export type Client$customModeOrdersArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.CustomModeOrderScalarFieldEnum | Prisma.CustomModeOrderScalarFieldEnum[]
+}
+
+/**
+ * Client.reviews
+ */
+export type Client$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**

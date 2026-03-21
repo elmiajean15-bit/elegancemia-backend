@@ -95,6 +95,11 @@ export type BlogPost = Prisma.BlogPostModel
  */
 export type Order = Prisma.OrderModel
 /**
+ * Model GuestClient
+ * 
+ */
+export type GuestClient = Prisma.GuestClientModel
+/**
  * Model OrderItem
  * 
  */

@@ -43,6 +43,7 @@ model Client {
   email     String   @unique
   phone     String
   city      String?
+  country   String?
   gender    ClientGender?
   avatar    String?
   role      ClientRole @default(client)
@@ -53,6 +54,8 @@ model Client {
   orders    Order[]
 
   customModeOrders CustomModeOrder[]
+
+  reviews Review[]
 
   createdAt DateTime @default(now())
 }
@@ -122,8 +125,11 @@ model Review {
 
   verified  Boolean @default(false)
 
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
+
+  clientId String?
+  client Client? @relation(fields: [clientId], references: [id])
 
   createdAt DateTime @default(now())
 }
@@ -190,6 +196,21 @@ model Order {
   createdAt DateTime @default(now())
 }
 
+model GuestClient {
+  id String @id @default(uuid())
+
+  nom String
+  email String
+  telephone String?
+  ville String?
+  pays String?
+  source String?
+
+  orders CustomModeOrder[]
+
+  createdAt DateTime @default(now())
+}
+
 model OrderItem {
   id        String  @id @default(uuid())
 
@@ -239,33 +260,42 @@ model Payment {
 }
 
 model CustomModeOrder {
-
   id String @id @default(uuid())
 
+  // 🔐 CLIENT CONNECTÉ
   clientId String?
   client   Client? @relation(fields: [clientId], references: [id])
 
+  // 👤 GUEST
+  guestClientId String?
+  guestClient   GuestClient? @relation(fields: [guestClientId], references: [id])
+
+  // 🧵 CREATION
   type String
   genre String
   pieces String
   occasion String
 
+  // 🎨 STYLE
   style String
   couleur String
   matiere String
   complexite String
   inspiration String
 
+  // 🧪 TECHNIQUE
   taille String
   morphologie String
   finitions String
   accessoires String
   essayage String
 
+  // 💰 BUSINESS
   budget String
   delai String
   livraison String
 
+  // ⚠️ GARDER (fallback / snapshot)
   nom String?
   email String?
   telephone String?
