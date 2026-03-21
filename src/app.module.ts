@@ -8,7 +8,6 @@ import { ConfigModule } from '@nestjs/config';
 // import { MailModule } from './mail.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { AdminClientModule } from './admin/client/admin-client.module';
 import { ProductModule } from './admin/product/product.module';
 import { PortfolioModule } from './admin/portfolio/portfolio.module';
@@ -16,6 +15,7 @@ import { PublicPortfolioModule } from './public/portfolio/portfolio.module';
 import { PublicProductModule } from './public/product/product.module';
 import { PublicReviewModule } from './public/reviews/review.module';
 import { ModeOrderModule } from './public/commande-mode/mode-oder.module';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
 
 @Module({
   imports: [
