@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import * as express from 'express';
 
 async function bootstrap() {
+  process.on('uncaughtException', e => console.error('uncaughtException', e));
+  process.on('unhandledRejection', e => console.error('unhandledRejection', e));
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
@@ -13,7 +15,7 @@ async function bootstrap() {
   });
 
   app.use('/uploads', express.static('uploads'));
-
+  console.log('BOOT PORT=', process.env.PORT);
   await app.listen(Number(process.env.PORT));
 }
 bootstrap();
