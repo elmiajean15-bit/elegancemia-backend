@@ -5,6 +5,10 @@ import * as express from 'express';
 async function bootstrap() {
   process.on('uncaughtException', e => console.error('uncaughtException', e));
   process.on('unhandledRejection', e => console.error('unhandledRejection', e));
+  process.on('uncaughtException', e => console.error('uncaughtException', e));
+  process.on('unhandledRejection', e => console.error('unhandledRejection', e));
+  process.on('uncaughtException', e => console.error('uncaughtException', e));
+  process.on('unhandledRejection', e => console.error('unhandledRejection', e));
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
