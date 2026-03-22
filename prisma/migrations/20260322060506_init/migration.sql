@@ -21,6 +21,7 @@ CREATE TABLE `Client` (
     `email` VARCHAR(191) NOT NULL,
     `phone` VARCHAR(191) NOT NULL,
     `city` VARCHAR(191) NULL,
+    `country` VARCHAR(191) NULL,
     `gender` ENUM('femme', 'homme', 'autre') NULL,
     `avatar` VARCHAR(191) NULL,
     `role` ENUM('client', 'admin') NOT NULL DEFAULT 'client',
@@ -37,7 +38,7 @@ CREATE TABLE `Product` (
     `id` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NOT NULL,
+    `description` TEXT NOT NULL,
     `category` ENUM('pagne', 'tissu', 'accessoire', 'pret_a_porter', 'creation') NOT NULL,
     `price` DOUBLE NOT NULL,
     `currency` ENUM('FCFA', 'EUR') NOT NULL,
@@ -89,6 +90,7 @@ CREATE TABLE `Review` (
     `comment` VARCHAR(191) NOT NULL,
     `verified` BOOLEAN NOT NULL DEFAULT false,
     `productId` VARCHAR(191) NOT NULL,
+    `clientId` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
@@ -99,7 +101,7 @@ CREATE TABLE `PortfolioProject` (
     `id` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
-    `description` VARCHAR(191) NOT NULL,
+    `description` TEXT NOT NULL,
     `category` ENUM('stylisme', 'modelisme', 'accessoire') NOT NULL,
     `year` INTEGER NOT NULL,
     `featured` BOOLEAN NOT NULL DEFAULT false,
@@ -150,6 +152,20 @@ CREATE TABLE `Order` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `GuestClient` (
+    `id` VARCHAR(191) NOT NULL,
+    `nom` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `telephone` VARCHAR(191) NULL,
+    `ville` VARCHAR(191) NULL,
+    `pays` VARCHAR(191) NULL,
+    `source` VARCHAR(191) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `OrderItem` (
     `id` VARCHAR(191) NOT NULL,
     `orderId` VARCHAR(191) NOT NULL,
@@ -193,6 +209,7 @@ CREATE TABLE `Payment` (
 CREATE TABLE `CustomModeOrder` (
     `id` VARCHAR(191) NOT NULL,
     `clientId` VARCHAR(191) NULL,
+    `guestClientId` VARCHAR(191) NULL,
     `type` VARCHAR(191) NOT NULL,
     `genre` VARCHAR(191) NOT NULL,
     `pieces` VARCHAR(191) NOT NULL,
@@ -217,6 +234,18 @@ CREATE TABLE `CustomModeOrder` (
     `pays` VARCHAR(191) NULL,
     `source` VARCHAR(191) NULL,
     `status` VARCHAR(191) NOT NULL DEFAULT 'pending',
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `BlacklistedToken` (
+    `id` VARCHAR(191) NOT NULL,
+    `token` VARCHAR(191) NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
+    `role` VARCHAR(191) NOT NULL,
+    `expiresAt` DATETIME(3) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
@@ -251,7 +280,10 @@ ALTER TABLE `ProductImage` ADD CONSTRAINT `ProductImage_productId_fkey` FOREIGN 
 ALTER TABLE `ProductVariant` ADD CONSTRAINT `ProductVariant_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Review` ADD CONSTRAINT `Review_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Review` ADD CONSTRAINT `Review_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Review` ADD CONSTRAINT `Review_clientId_fkey` FOREIGN KEY (`clientId`) REFERENCES `Client`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `PortfolioImage` ADD CONSTRAINT `PortfolioImage_projectId_fkey` FOREIGN KEY (`projectId`) REFERENCES `PortfolioProject`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -273,6 +305,9 @@ ALTER TABLE `Payment` ADD CONSTRAINT `Payment_customModeOrderId_fkey` FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE `CustomModeOrder` ADD CONSTRAINT `CustomModeOrder_clientId_fkey` FOREIGN KEY (`clientId`) REFERENCES `Client`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `CustomModeOrder` ADD CONSTRAINT `CustomModeOrder_guestClientId_fkey` FOREIGN KEY (`guestClientId`) REFERENCES `GuestClient`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_ProductToProductTag` ADD CONSTRAINT `_ProductToProductTag_A_fkey` FOREIGN KEY (`A`) REFERENCES `Product`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
