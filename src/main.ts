@@ -1,3 +1,30 @@
+// import { NestFactory } from '@nestjs/core';
+// import { AppModule } from './app.module';
+// import * as express from 'express';
+
+// async function bootstrap() {
+//   const app = await NestFactory.create(AppModule);
+
+//   app.enableCors({
+//     origin: ['http://localhost:3001'],
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+//     allowedHeaders: 'Content-Type, Accept, Authorization',
+//     credentials: true,
+//   });
+
+//   app.use('/uploads', express.static('uploads'));
+
+//   await app.listen(process.env.PORT ?? 3000);
+// }
+// bootstrap();
+
+
+
+
+
+
+
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as express from 'express';
@@ -23,6 +50,27 @@ async function bootstrap() {
   await app.listen(Number(process.env.PORT));
 }
 bootstrap();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // Très bonne question 👍
 // // Pour ton projet **Elegance Mia (stylisme, modélisme, accessoiriste + boutique + gestion financière)**, il faut une **architecture backend claire et scalable** avec **séparation Client / Admin**.

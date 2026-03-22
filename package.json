@@ -5,6 +5,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "postinstall": "prisma generate",
+    "prisma:init": "npx prisma init",
     "build": "prisma generate && nest build",
     "start": "node dist/src/main.js",
     "start:dev": "nest start --watch",
