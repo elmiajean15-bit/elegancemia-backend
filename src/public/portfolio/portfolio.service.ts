@@ -2,7 +2,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
-import { PortfolioCategory } from '../../../generated/prisma/enums';
+import { PortfolioCategory } from '../../../../generated/prisma/enums';
 
 @Injectable()
 export class PublicPortfolioService {

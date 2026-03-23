@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { AdminRole, PrismaClient } from '../../generated/prisma/client';
+import { AdminRole, PrismaClient } from '../../../generated/prisma/client';
 import 'dotenv/config';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 

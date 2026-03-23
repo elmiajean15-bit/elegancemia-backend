@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { PortfolioCategory } from '../../../../generated/prisma/client';
+import { PortfolioCategory } from '../../../../../generated/prisma/client';
 
 export class CreatePortfolioDto {
   @IsString()

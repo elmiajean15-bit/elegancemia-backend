@@ -7,7 +7,7 @@ import { PrismaService } from '../../database/prisma.service';
 import slugify from 'slugify';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Currency, ProductCategory } from '../../../generated/prisma/client';
+import { Currency, ProductCategory } from '../../../../generated/prisma/client';
 
 @Injectable()
 export class ProductService {
