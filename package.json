@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "prisma generate --schema=prisma/schema.prisma",
     "prisma:init": "npx prisma init",
-    "build": "prisma generate --schema=prisma/schema.prisma && nest build && cp -R prisma dist/prisma",
+    "build": "prisma generate --schema=prisma/schema.prisma && nest build && cp -R prisma dist/",
     "start": "node dist/src/main.js",
     "start:dev": "nest start --watch",
     "start:prod": "prisma migrate deploy --schema=dist/prisma/schema.prisma && node dist/src/main.js",
