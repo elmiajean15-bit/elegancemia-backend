@@ -5,13 +5,15 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class ModeOrderService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(dto: CreateModeOrderDto) {
     let clientId: string | null = null;
     let guestClientId: string | null = null;
 
-    // 🟢 CAS 1 : CREATION DE COMPTE
+    /* ===============================
+       🟢 CAS 1 : CREATION DE COMPTE
+    =============================== */
     if (dto.createAccount) {
       const existing = await this.prisma.client.findUnique({
         where: { email: dto.email },
@@ -19,16 +21,16 @@ export class ModeOrderService {
 
       let client;
 
-      const hashedPassword = await bcrypt.hash(dto.password, 10);
-
       if (existing) {
         client = existing;
       } else {
+        const hashedPassword = await bcrypt.hash(dto.password, 10);
+
         client = await this.prisma.client.create({
           data: {
             name: dto.nom,
             email: dto.email,
-            password: hashedPassword, // ⚠️ hash à ajouter
+            password: hashedPassword,
             phone: dto.telephone,
             city: dto.ville,
             country: dto.pays,
@@ -37,23 +39,40 @@ export class ModeOrderService {
       }
 
       clientId = client.id;
-    } else {
-      // 🔵 CAS 2 : GUEST
-      const guest = await this.prisma.guestClient.create({
-        data: {
-          nom: dto.nom,
-          email: dto.email,
-          telephone: dto.telephone,
-          ville: dto.ville,
-          pays: dto.pays,
-          source: dto.source,
-        },
-      });
-
-      guestClientId = guest.id;
     }
 
-    // 🧾 CREATION COMMANDE
+    /* ===============================
+       🔵 CAS 2 : PAS DE COMPTE
+    =============================== */
+    else {
+      // 🔎 vérifier si client existe déjà
+      const existingClient = await this.prisma.client.findUnique({
+        where: { email: dto.email },
+      });
+
+      if (existingClient) {
+        // 👉 on rattache la commande au compte existant
+        clientId = existingClient.id;
+      } else {
+        // 👉 sinon guest
+        const guest = await this.prisma.guestClient.create({
+          data: {
+            nom: dto.nom,
+            email: dto.email,
+            telephone: dto.telephone,
+            ville: dto.ville,
+            pays: dto.pays,
+            source: dto.source,
+          },
+        });
+
+        guestClientId = guest.id;
+      }
+    }
+
+    /* ===============================
+       🧾 CREATION COMMANDE
+    =============================== */
     return this.prisma.customModeOrder.create({
       data: {
         clientId,
