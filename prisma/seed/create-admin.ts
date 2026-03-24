@@ -1,3 +1,51 @@
+// import * as bcrypt from 'bcrypt';
+// import { AdminRole, PrismaClient } from '../../generated/prisma/client';
+// import 'dotenv/config';
+// import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+
+// function getDbConfigFromUrl() {
+//  const raw = process.env.DATABASE_URL;
+//  if (!raw) throw new Error('DATABASE_URL is not set');
+
+//  const u = new URL(raw);
+//  return {
+//  host: u.hostname,
+//  port: u.port ? Number(u.port) : 3306,
+//  user: decodeURIComponent(u.username),
+//  password: decodeURIComponent(u.password),
+//  database: u.pathname.replace(/^\//, ''),
+//  };
+// }
+
+// const adapter = new PrismaMariaDb({
+//  ...getDbConfigFromUrl(),
+//  connectionLimit: 5,
+// });
+
+// export const prisma = new PrismaClient({ adapter });
+
+// async function main() {
+//  const password = await bcrypt.hash('mancreator_06', 10);
+
+//  const admin = await prisma.admin.create({
+//  data: {
+//  name: 'Mancreator Admin',
+//  email: 'mancreator06@gmail.com',
+//  phone: '2290197329640',
+//  password,
+//  role: AdminRole.super_admin,
+//  },
+//  });
+
+//  console.log('Admin créé :', admin);
+// }
+
+// main()
+//  .catch(console.error)
+//  .finally(() => prisma.$disconnect());
+
+
+
 import * as bcrypt from 'bcrypt';
 import { AdminRole, PrismaClient } from '../../generated/prisma/client';
 import 'dotenv/config';
@@ -34,4 +82,4 @@ main()
   .catch(console.error)
   .finally(() => prisma.$disconnect());
 
-//   npx ts-node prisma/seed/create-admin.ts
+// //   npx ts-node prisma/seed/create-admin.ts
