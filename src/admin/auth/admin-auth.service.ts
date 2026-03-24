@@ -78,7 +78,7 @@ export class AdminAuthService {
 
     console.log(token);
 
-    const resetLink = `http://localhost:3001/super-level-mode/reinitialiser-mot-de-passe?token=${token}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/super-level-mode/reinitialiser-mot-de-passe?token=${token}`;
 
     await this.mailerService.sendMail({
       to: admin.email,

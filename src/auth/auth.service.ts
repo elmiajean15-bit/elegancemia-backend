@@ -103,7 +103,7 @@ export class AuthService {
 
     console.log(token);
 
-    const resetLink = `http://localhost:3001/reinitialiser-mot-de-passe?token=${token}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/reinitialiser-mot-de-passe?token=${token}`;
 
     // Envoyer email
     // await this.mailerService.sendMail({
