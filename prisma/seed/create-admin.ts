@@ -25,13 +25,13 @@ const adapter = new PrismaMariaDb({
 export const prisma = new PrismaClient({ adapter });
 
 async function main() {
- const password = await bcrypt.hash('mancreator_06', 10);
+ const password = await bcrypt.hash('Telma15$.', 10);
 
  const admin = await prisma.admin.create({
  data: {
- name: 'Mancreator Admin',
- email: 'mancreator06@gmail.com',
- phone: '2290197329640',
+ name: 'Elegance Mia',
+ email: 'elegancemia11@gmail.com',
+ phone: '2290161584504',
  password,
  role: AdminRole.super_admin,
  },
