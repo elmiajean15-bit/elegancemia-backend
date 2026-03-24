@@ -1,21 +1,21 @@
 -- CreateTable
-CREATE TABLE `Admin` (
+CREATE TABLE `admins` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `phone` VARCHAR(191) NULL,
     `password` VARCHAR(191) NOT NULL,
     `role` ENUM('admin', 'super_admin', 'manager') NOT NULL DEFAULT 'admin',
-    `isActive` BOOLEAN NOT NULL DEFAULT true,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
-    UNIQUE INDEX `Admin_email_key`(`email`),
-    UNIQUE INDEX `Admin_phone_key`(`phone`),
+    UNIQUE INDEX `admins_email_key`(`email`),
+    UNIQUE INDEX `admins_phone_key`(`phone`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Client` (
+CREATE TABLE `clients` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
@@ -25,16 +25,16 @@ CREATE TABLE `Client` (
     `gender` ENUM('femme', 'homme', 'autre') NULL,
     `avatar` VARCHAR(191) NULL,
     `role` ENUM('client', 'admin') NOT NULL DEFAULT 'client',
-    `isActive` BOOLEAN NOT NULL DEFAULT true,
+    `is_active` BOOLEAN NOT NULL DEFAULT true,
     `password` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
-    UNIQUE INDEX `Client_email_key`(`email`),
+    UNIQUE INDEX `clients_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Product` (
+CREATE TABLE `products` (
     `id` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
@@ -44,60 +44,60 @@ CREATE TABLE `Product` (
     `currency` ENUM('FCFA', 'EUR') NOT NULL,
     `featured` BOOLEAN NOT NULL DEFAULT false,
     `rating` DOUBLE NULL,
-    `stockQuantity` INTEGER NOT NULL DEFAULT 0,
-    `inStock` BOOLEAN NOT NULL DEFAULT true,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `stock_quantity` INTEGER NOT NULL DEFAULT 0,
+    `in_stock` BOOLEAN NOT NULL DEFAULT true,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
-    UNIQUE INDEX `Product_slug_key`(`slug`),
+    UNIQUE INDEX `products_slug_key`(`slug`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `ProductTag` (
+CREATE TABLE `product_tags` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `ProductTag_slug_key`(`slug`),
+    UNIQUE INDEX `product_tags_slug_key`(`slug`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `ProductImage` (
+CREATE TABLE `product_images` (
     `id` VARCHAR(191) NOT NULL,
     `url` VARCHAR(191) NOT NULL,
     `alt` VARCHAR(191) NULL,
-    `productId` VARCHAR(191) NOT NULL,
+    `product_id` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `ProductVariant` (
+CREATE TABLE `product_variants` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `value` VARCHAR(191) NOT NULL,
-    `productId` VARCHAR(191) NOT NULL,
+    `product_id` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Review` (
+CREATE TABLE `reviews` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `rating` INTEGER NOT NULL,
     `comment` VARCHAR(191) NOT NULL,
     `verified` BOOLEAN NOT NULL DEFAULT false,
-    `productId` VARCHAR(191) NOT NULL,
-    `clientId` VARCHAR(191) NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `product_id` VARCHAR(191) NOT NULL,
+    `client_id` VARCHAR(191) NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `PortfolioProject` (
+CREATE TABLE `portfolio_projects` (
     `id` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
@@ -106,53 +106,53 @@ CREATE TABLE `PortfolioProject` (
     `year` INTEGER NOT NULL,
     `featured` BOOLEAN NOT NULL DEFAULT false,
 
-    UNIQUE INDEX `PortfolioProject_slug_key`(`slug`),
+    UNIQUE INDEX `portfolio_projects_slug_key`(`slug`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `PortfolioImage` (
+CREATE TABLE `portfolio_images` (
     `id` VARCHAR(191) NOT NULL,
     `url` VARCHAR(191) NOT NULL,
     `alt` VARCHAR(191) NOT NULL,
-    `projectId` VARCHAR(191) NOT NULL,
+    `project_id` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `BlogPost` (
+CREATE TABLE `blog_posts` (
     `id` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
     `excerpt` VARCHAR(191) NOT NULL,
     `content` VARCHAR(191) NOT NULL,
     `category` ENUM('stylisme', 'modelisme', 'accessoire', 'business', 'tendance') NOT NULL,
-    `coverUrl` VARCHAR(191) NOT NULL,
-    `coverAlt` VARCHAR(191) NOT NULL,
-    `authorName` VARCHAR(191) NOT NULL,
-    `authorAvatar` VARCHAR(191) NOT NULL,
+    `cover_url` VARCHAR(191) NOT NULL,
+    `cover_alt` VARCHAR(191) NOT NULL,
+    `author_name` VARCHAR(191) NOT NULL,
+    `author_avatar` VARCHAR(191) NOT NULL,
     `featured` BOOLEAN NOT NULL DEFAULT false,
-    `publishedAt` DATETIME(3) NOT NULL,
+    `published_at` DATETIME(3) NOT NULL,
 
-    UNIQUE INDEX `BlogPost_slug_key`(`slug`),
+    UNIQUE INDEX `blog_posts_slug_key`(`slug`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Order` (
+CREATE TABLE `orders` (
     `id` VARCHAR(191) NOT NULL,
-    `clientId` VARCHAR(191) NOT NULL,
+    `client_id` VARCHAR(191) NOT NULL,
     `total` DOUBLE NOT NULL,
     `currency` ENUM('FCFA', 'EUR') NOT NULL,
     `status` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `GuestClient` (
+CREATE TABLE `guest_clients` (
     `id` VARCHAR(191) NOT NULL,
     `nom` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
@@ -160,16 +160,16 @@ CREATE TABLE `GuestClient` (
     `ville` VARCHAR(191) NULL,
     `pays` VARCHAR(191) NULL,
     `source` VARCHAR(191) NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `OrderItem` (
+CREATE TABLE `order_items` (
     `id` VARCHAR(191) NOT NULL,
-    `orderId` VARCHAR(191) NOT NULL,
-    `productId` VARCHAR(191) NOT NULL,
+    `order_id` VARCHAR(191) NOT NULL,
+    `product_id` VARCHAR(191) NOT NULL,
     `quantity` INTEGER NOT NULL,
     `price` DOUBLE NOT NULL,
 
@@ -177,39 +177,39 @@ CREATE TABLE `OrderItem` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `ShippingMethod` (
+CREATE TABLE `shipping_methods` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `zone` ENUM('national', 'international') NOT NULL,
     `city` VARCHAR(191) NOT NULL,
     `price` DOUBLE NOT NULL,
     `currency` ENUM('FCFA', 'EUR') NOT NULL,
-    `estimatedDays` INTEGER NOT NULL,
+    `estimated_days` INTEGER NOT NULL,
     `active` BOOLEAN NOT NULL DEFAULT true,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Payment` (
+CREATE TABLE `payments` (
     `id` VARCHAR(191) NOT NULL,
-    `transactionId` VARCHAR(191) NULL,
+    `transaction_id` VARCHAR(191) NULL,
     `method` ENUM('mobile_money', 'card', 'bank_transfer') NOT NULL,
     `amount` DOUBLE NOT NULL,
     `currency` ENUM('FCFA', 'EUR') NOT NULL,
     `status` VARCHAR(191) NOT NULL,
-    `orderId` VARCHAR(191) NULL,
-    `customModeOrderId` VARCHAR(191) NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `order_id` VARCHAR(191) NULL,
+    `custom_mode_order_id` VARCHAR(191) NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `CustomModeOrder` (
+CREATE TABLE `custom_mode_orders` (
     `id` VARCHAR(191) NOT NULL,
-    `clientId` VARCHAR(191) NULL,
-    `guestClientId` VARCHAR(191) NULL,
+    `client_id` VARCHAR(191) NULL,
+    `guest_client_id` VARCHAR(191) NULL,
     `type` VARCHAR(191) NOT NULL,
     `genre` VARCHAR(191) NOT NULL,
     `pieces` VARCHAR(191) NOT NULL,
@@ -234,32 +234,32 @@ CREATE TABLE `CustomModeOrder` (
     `pays` VARCHAR(191) NULL,
     `source` VARCHAR(191) NULL,
     `status` VARCHAR(191) NOT NULL DEFAULT 'pending',
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `BlacklistedToken` (
+CREATE TABLE `blacklisted_tokens` (
     `id` VARCHAR(191) NOT NULL,
     `token` VARCHAR(191) NOT NULL,
-    `userId` VARCHAR(191) NOT NULL,
+    `user_id` VARCHAR(191) NOT NULL,
     `role` VARCHAR(191) NOT NULL,
-    `expiresAt` DATETIME(3) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `expires_at` DATETIME(3) NOT NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `ContactMessage` (
+CREATE TABLE `contact_messages` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `phone` VARCHAR(191) NULL,
     `subject` ENUM('information', 'commande', 'collaboration', 'support') NOT NULL,
     `message` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -274,43 +274,43 @@ CREATE TABLE `_ProductToProductTag` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `ProductImage` ADD CONSTRAINT `ProductImage_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `product_images` ADD CONSTRAINT `product_images_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `ProductVariant` ADD CONSTRAINT `ProductVariant_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `product_variants` ADD CONSTRAINT `product_variants_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Review` ADD CONSTRAINT `Review_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `reviews` ADD CONSTRAINT `reviews_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Review` ADD CONSTRAINT `Review_clientId_fkey` FOREIGN KEY (`clientId`) REFERENCES `Client`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `reviews` ADD CONSTRAINT `reviews_client_id_fkey` FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `PortfolioImage` ADD CONSTRAINT `PortfolioImage_projectId_fkey` FOREIGN KEY (`projectId`) REFERENCES `PortfolioProject`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `portfolio_images` ADD CONSTRAINT `portfolio_images_project_id_fkey` FOREIGN KEY (`project_id`) REFERENCES `portfolio_projects`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Order` ADD CONSTRAINT `Order_clientId_fkey` FOREIGN KEY (`clientId`) REFERENCES `Client`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `orders` ADD CONSTRAINT `orders_client_id_fkey` FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `OrderItem` ADD CONSTRAINT `OrderItem_orderId_fkey` FOREIGN KEY (`orderId`) REFERENCES `Order`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `order_items` ADD CONSTRAINT `order_items_order_id_fkey` FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `OrderItem` ADD CONSTRAINT `OrderItem_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `order_items` ADD CONSTRAINT `order_items_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Payment` ADD CONSTRAINT `Payment_orderId_fkey` FOREIGN KEY (`orderId`) REFERENCES `Order`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `payments` ADD CONSTRAINT `payments_order_id_fkey` FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Payment` ADD CONSTRAINT `Payment_customModeOrderId_fkey` FOREIGN KEY (`customModeOrderId`) REFERENCES `CustomModeOrder`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `payments` ADD CONSTRAINT `payments_custom_mode_order_id_fkey` FOREIGN KEY (`custom_mode_order_id`) REFERENCES `custom_mode_orders`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `CustomModeOrder` ADD CONSTRAINT `CustomModeOrder_clientId_fkey` FOREIGN KEY (`clientId`) REFERENCES `Client`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `custom_mode_orders` ADD CONSTRAINT `custom_mode_orders_client_id_fkey` FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `CustomModeOrder` ADD CONSTRAINT `CustomModeOrder_guestClientId_fkey` FOREIGN KEY (`guestClientId`) REFERENCES `GuestClient`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `custom_mode_orders` ADD CONSTRAINT `custom_mode_orders_guest_client_id_fkey` FOREIGN KEY (`guest_client_id`) REFERENCES `guest_clients`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_ProductToProductTag` ADD CONSTRAINT `_ProductToProductTag_A_fkey` FOREIGN KEY (`A`) REFERENCES `Product`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_ProductToProductTag` ADD CONSTRAINT `_ProductToProductTag_A_fkey` FOREIGN KEY (`A`) REFERENCES `products`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_ProductToProductTag` ADD CONSTRAINT `_ProductToProductTag_B_fkey` FOREIGN KEY (`B`) REFERENCES `ProductTag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_ProductToProductTag` ADD CONSTRAINT `_ProductToProductTag_B_fkey` FOREIGN KEY (`B`) REFERENCES `product_tags`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
