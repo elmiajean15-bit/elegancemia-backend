@@ -4,7 +4,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "postinstall": "prisma init && prisma generate",
+    "postinstall": "prisma generate",
     "prisma:init": "npx prisma init",
     "build": "npx prisma init && prisma generate && nest build",
     "start": "node dist/src/main.js",
