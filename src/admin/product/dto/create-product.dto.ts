@@ -1,5 +1,5 @@
 import { IsEnum } from 'class-validator';
-import { Currency, ProductCategory } from '../../../../../generated/prisma/client';
+import { Currency, ProductCategory } from '../../../../generated/prisma/client';
 
 export class CreateProductDto {
   name: string;
