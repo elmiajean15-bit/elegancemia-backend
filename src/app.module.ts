@@ -50,7 +50,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.ad
         from: `"Elegance Mia" <${process.env.MAIL_USER}>`,
       },
       template: {
-        dir: join(process.cwd(), 'dis', 'src', 'templates'), // dossier templates
+        dir: join(process.cwd(), 'dist/src/templates'), // dossier templates
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true,
