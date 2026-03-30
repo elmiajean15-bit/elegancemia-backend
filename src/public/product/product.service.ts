@@ -56,7 +56,7 @@ export class PublicProductService {
         include: {
           images: true,
           variants: true,
-          tags: true,
+          productTags: true,
         },
       }),
 
@@ -96,7 +96,7 @@ export class PublicProductService {
       include: {
         images: true,
         variants: true,
-        tags: true,
+        productTags: true,
       },
     });
 
