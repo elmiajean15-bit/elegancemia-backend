@@ -24,8 +24,8 @@ async createTransaction(data: {
       amount: data.amount,
       currency: { iso: "XOF" },
 
-      callback_url: `${process.env.FRONTEND_URL}/checkout/success`,
-      cancel_url: `${process.env.FRONTEND_URL}/checkout/error`,
+      callback_url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/checkout/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/checkout/error`,
 
       customer: {
         firstname: data.name,
