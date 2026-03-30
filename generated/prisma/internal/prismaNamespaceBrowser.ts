@@ -227,6 +227,13 @@ export const OrderScalarFieldEnum = {
   total: 'total',
   currency: 'currency',
   status: 'status',
+  shippingMethodId: 'shippingMethodId',
+  fullName: 'fullName',
+  phone: 'phone',
+  email: 'email',
+  address: 'address',
+  paymentStatus: 'paymentStatus',
+  paymentReference: 'paymentReference',
   createdAt: 'createdAt'
 } as const
 
@@ -252,7 +259,8 @@ export const OrderItemScalarFieldEnum = {
   orderId: 'orderId',
   productId: 'productId',
   quantity: 'quantity',
-  price: 'price'
+  price: 'price',
+  name: 'name'
 } as const
 
 export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
@@ -266,7 +274,8 @@ export const ShippingMethodScalarFieldEnum = {
   price: 'price',
   currency: 'currency',
   estimatedDays: 'estimatedDays',
-  active: 'active'
+  active: 'active',
+  createdAt: 'createdAt'
 } as const
 
 export type ShippingMethodScalarFieldEnum = (typeof ShippingMethodScalarFieldEnum)[keyof typeof ShippingMethodScalarFieldEnum]
@@ -281,6 +290,10 @@ export const PaymentScalarFieldEnum = {
   status: 'status',
   orderId: 'orderId',
   customModeOrderId: 'customModeOrderId',
+  fedapayId: 'fedapayId',
+  paymentUrl: 'paymentUrl',
+  rawResponse: 'rawResponse',
+  reference: 'reference',
   createdAt: 'createdAt'
 } as const
 
@@ -352,6 +365,14 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const NullsOrder = {
@@ -475,7 +496,14 @@ export type BlogPostOrderByRelevanceFieldEnum = (typeof BlogPostOrderByRelevance
 export const OrderOrderByRelevanceFieldEnum = {
   id: 'id',
   clientId: 'clientId',
-  status: 'status'
+  status: 'status',
+  shippingMethodId: 'shippingMethodId',
+  fullName: 'fullName',
+  phone: 'phone',
+  email: 'email',
+  address: 'address',
+  paymentStatus: 'paymentStatus',
+  paymentReference: 'paymentReference'
 } as const
 
 export type OrderOrderByRelevanceFieldEnum = (typeof OrderOrderByRelevanceFieldEnum)[keyof typeof OrderOrderByRelevanceFieldEnum]
@@ -497,7 +525,8 @@ export type GuestClientOrderByRelevanceFieldEnum = (typeof GuestClientOrderByRel
 export const OrderItemOrderByRelevanceFieldEnum = {
   id: 'id',
   orderId: 'orderId',
-  productId: 'productId'
+  productId: 'productId',
+  name: 'name'
 } as const
 
 export type OrderItemOrderByRelevanceFieldEnum = (typeof OrderItemOrderByRelevanceFieldEnum)[keyof typeof OrderItemOrderByRelevanceFieldEnum]
@@ -512,12 +541,32 @@ export const ShippingMethodOrderByRelevanceFieldEnum = {
 export type ShippingMethodOrderByRelevanceFieldEnum = (typeof ShippingMethodOrderByRelevanceFieldEnum)[keyof typeof ShippingMethodOrderByRelevanceFieldEnum]
 
 
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
 export const PaymentOrderByRelevanceFieldEnum = {
   id: 'id',
   transactionId: 'transactionId',
   status: 'status',
   orderId: 'orderId',
-  customModeOrderId: 'customModeOrderId'
+  customModeOrderId: 'customModeOrderId',
+  fedapayId: 'fedapayId',
+  paymentUrl: 'paymentUrl',
+  reference: 'reference'
 } as const
 
 export type PaymentOrderByRelevanceFieldEnum = (typeof PaymentOrderByRelevanceFieldEnum)[keyof typeof PaymentOrderByRelevanceFieldEnum]

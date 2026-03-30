@@ -16,6 +16,9 @@ import { PublicProductModule } from './public/product/product.module';
 import { PublicReviewModule } from './public/reviews/review.module';
 import { ModeOrderModule } from './public/commande-mode/mode-oder.module';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
+import { ShippingPublicModule } from './public/shipping/shipping-public.module';
+import { AdminShippingModule } from './admin/shipping/shipping.module';
+import { PublicOrdersModule } from './public/orders/public-orders.module';
 
 @Module({
   imports: [
@@ -28,7 +31,11 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.ad
     PublicPortfolioModule,
     ProductModule,
     PublicReviewModule,
+    PublicOrdersModule,
     PortfolioModule,
+    PublicOrdersModule,
+    ShippingPublicModule,
+    AdminShippingModule,
     // MailModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -50,7 +57,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.ad
         from: `"Elegance Mia" <${process.env.MAIL_USER}>`,
       },
       template: {
-        dir: join(process.cwd(), 'dist/src/templates'), // dossier templates
+        dir: join(process.cwd(), 'src/templates'), // dossier templates
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true,

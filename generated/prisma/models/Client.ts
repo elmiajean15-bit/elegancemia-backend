@@ -492,11 +492,6 @@ export type ClientNullableScalarRelationFilter = {
   isNot?: Prisma.ClientWhereInput | null
 }
 
-export type ClientScalarRelationFilter = {
-  is?: Prisma.ClientWhereInput
-  isNot?: Prisma.ClientWhereInput
-}
-
 export type NullableEnumClientGenderFieldUpdateOperationsInput = {
   set?: $Enums.ClientGender | null
 }
@@ -527,10 +522,12 @@ export type ClientCreateNestedOneWithoutOrdersInput = {
   connect?: Prisma.ClientWhereUniqueInput
 }
 
-export type ClientUpdateOneRequiredWithoutOrdersNestedInput = {
+export type ClientUpdateOneWithoutOrdersNestedInput = {
   create?: Prisma.XOR<Prisma.ClientCreateWithoutOrdersInput, Prisma.ClientUncheckedCreateWithoutOrdersInput>
   connectOrCreate?: Prisma.ClientCreateOrConnectWithoutOrdersInput
   upsert?: Prisma.ClientUpsertWithoutOrdersInput
+  disconnect?: Prisma.ClientWhereInput | boolean
+  delete?: Prisma.ClientWhereInput | boolean
   connect?: Prisma.ClientWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClientUpdateToOneWithWhereWithoutOrdersInput, Prisma.ClientUpdateWithoutOrdersInput>, Prisma.ClientUncheckedUpdateWithoutOrdersInput>
 }

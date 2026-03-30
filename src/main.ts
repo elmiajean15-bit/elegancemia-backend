@@ -1,53 +1,28 @@
-// import { NestFactory } from '@nestjs/core';
-// import { AppModule } from './app.module';
-// import * as express from 'express';
-
-// async function bootstrap() {
-//   const app = await NestFactory.create(AppModule);
-
-//   app.enableCors({
-//     origin: ['http://localhost:3001'],
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-//     allowedHeaders: 'Content-Type, Accept, Authorization',
-//     credentials: true,
-//   });
-
-//   app.use('/uploads', express.static('uploads'));
-
-//   await app.listen(process.env.PORT ?? 3000);
-// }
-// bootstrap();
-
-
-
-
-
-
-
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as express from 'express';
 
 async function bootstrap() {
-  process.on('uncaughtException', e => console.error('uncaughtException', e));
-  process.on('unhandledRejection', e => console.error('unhandledRejection', e));
-  process.on('uncaughtException', e => console.error('uncaughtException', e));
-  process.on('unhandledRejection', e => console.error('unhandledRejection', e));
-  process.on('uncaughtException', e => console.error('uncaughtException', e));
-  process.on('unhandledRejection', e => console.error('unhandledRejection', e));
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: ['https://www.elegancemia.com','https://elegancemia.com'],
+    origin: ['http://localhost:3001'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Accept, Authorization',
     credentials: true,
   });
 
+  app.use(
+    express.json({
+      verify: (req: any, res, buf) => {
+        req.rawBody = buf.toString();
+      },
+    }),
+  );
+
   app.use('/uploads', express.static('uploads'));
-  console.log('BOOT PORT=', process.env.PORT);
-  await app.listen(Number(process.env.PORT));
+
+  await app.listen(process.env.PORT ?? 3012);
 }
 bootstrap();
 
@@ -58,12 +33,53 @@ bootstrap();
 
 
 
+// import { NestFactory } from '@nestjs/core';
+// import { AppModule } from './app.module';
+// import * as express from 'express';
+
+// async function bootstrap() {
+//   process.on('uncaughtException', e => console.error('uncaughtException', e));
+//   process.on('unhandledRejection', e => console.error('unhandledRejection', e));
+//   process.on('uncaughtException', e => console.error('uncaughtException', e));
+//   process.on('unhandledRejection', e => console.error('unhandledRejection', e));
+//   process.on('uncaughtException', e => console.error('uncaughtException', e));
+//   process.on('unhandledRejection', e => console.error('unhandledRejection', e));
+//   const app = await NestFactory.create(AppModule);
+
+//   app.enableCors({
+//     origin: ['https://www.elegancemia.com','https://elegancemia.com'],
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+//     allowedHeaders: 'Content-Type, Accept, Authorization',
+//     credentials: true,
+//   });
+
+//   app.use('/uploads', express.static('uploads'));
+//   console.log('BOOT PORT=', process.env.PORT);
+//   await app.listen(Number(process.env.PORT));
+// }
+// bootstrap();
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+    // # "postinstall": "prisma generate --schema=prisma/schema.prisma",
+    // # "prisma:init": "npx prisma init",
+    // # "build": "prisma generate --schema=prisma/schema.prisma && nest build && cp -R prisma dist/",
+    // # "start": "node dist/src/main.js",
+    // # "start:dev": "nest start --watch",
+    // # "start:prod": "prisma generate --schema=dist/prisma/schema.prisma && prisma migrate deploy --schema=dist/prisma/schema.prisma && node dist/src/main.js",
+    
 
 
 
