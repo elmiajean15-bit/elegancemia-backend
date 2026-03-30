@@ -60,6 +60,11 @@ export type Product = Prisma.ProductModel
  */
 export type ProductTag = Prisma.ProductTagModel
 /**
+ * Model ProductToProductTag
+ * 
+ */
+export type ProductToProductTag = Prisma.ProductToProductTagModel
+/**
  * Model ProductImage
  * 
  */

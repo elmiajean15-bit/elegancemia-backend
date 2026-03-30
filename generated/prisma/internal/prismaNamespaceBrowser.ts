@@ -55,6 +55,7 @@ export const ModelName = {
   Client: 'Client',
   Product: 'Product',
   ProductTag: 'ProductTag',
+  ProductToProductTag: 'ProductToProductTag',
   ProductImage: 'ProductImage',
   ProductVariant: 'ProductVariant',
   Review: 'Review',
@@ -144,6 +145,14 @@ export const ProductTagScalarFieldEnum = {
 } as const
 
 export type ProductTagScalarFieldEnum = (typeof ProductTagScalarFieldEnum)[keyof typeof ProductTagScalarFieldEnum]
+
+
+export const ProductToProductTagScalarFieldEnum = {
+  productId: 'productId',
+  tagId: 'tagId'
+} as const
+
+export type ProductToProductTagScalarFieldEnum = (typeof ProductToProductTagScalarFieldEnum)[keyof typeof ProductToProductTagScalarFieldEnum]
 
 
 export const ProductImageScalarFieldEnum = {
@@ -425,6 +434,14 @@ export const ProductTagOrderByRelevanceFieldEnum = {
 } as const
 
 export type ProductTagOrderByRelevanceFieldEnum = (typeof ProductTagOrderByRelevanceFieldEnum)[keyof typeof ProductTagOrderByRelevanceFieldEnum]
+
+
+export const ProductToProductTagOrderByRelevanceFieldEnum = {
+  productId: 'productId',
+  tagId: 'tagId'
+} as const
+
+export type ProductToProductTagOrderByRelevanceFieldEnum = (typeof ProductToProductTagOrderByRelevanceFieldEnum)[keyof typeof ProductToProductTagOrderByRelevanceFieldEnum]
 
 
 export const ProductImageOrderByRelevanceFieldEnum = {

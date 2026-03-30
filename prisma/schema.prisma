@@ -61,43 +61,53 @@ model Client {
 }
 
 model Product {
-  id          String @id @default(uuid()) @map("id")
-  slug        String @unique @map("slug")
-  name        String @map("name")
-  description String @map("description") @db.Text
+ id String @id @default(uuid()) @map("id")
+ slug String @unique @map("slug")
+ name String @map("name")
+ description String @map("description") @db.Text
 
-  category ProductCategory @map("category")
+ category ProductCategory @map("category")
+ price Float @map("price")
+ currency Currency @map("currency")
 
-  price    Float    @map("price")
-  currency Currency @map("currency")
+ featured Boolean @default(false) @map("featured")
+ rating Float? @map("rating")
 
-  featured Boolean @default(false) @map("featured")
-  rating   Float?  @map("rating")
+ stockQuantity Int @default(0) @map("stock_quantity")
+ inStock Boolean @default(true) @map("in_stock")
 
-  stockQuantity Int     @default(0) @map("stock_quantity")
-  inStock       Boolean @default(true) @map("in_stock")
+ createdAt DateTime @default(now()) @map("created_at")
 
-  createdAt DateTime @default(now()) @map("created_at")
+ images ProductImage[]
+ variants ProductVariant[]
+ productTags ProductToProductTag[]
+ reviews Review[]
+ orderItems OrderItem[]
 
-  images     ProductImage[]
-  variants   ProductVariant[]
-  tags       ProductTag[]
-  reviews    Review[]
-  orderItems OrderItem[]
-
-  @@map("products")
+ @@map("products")
 }
 
 model ProductTag {
-  id String @id @default(uuid()) @map("id")
+ id String @id @default(uuid()) @map("id")
+ name String @map("name")
+ slug String @unique @map("slug")
 
-  name String @map("name")
-  slug String @unique @map("slug")
+ productTags ProductToProductTag[]
 
-  products Product[]
-
-  @@map("product_tags")
+ @@map("product_tags")
 }
+
+model ProductToProductTag {
+ productId String @map("product_id")
+ tagId String @map("tag_id")
+
+ product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+ tag ProductTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+ @@id([productId, tagId])
+ @@map("product_to_product_tag")
+}
+
 
 model ProductImage {
   id  String  @id @default(uuid()) @map("id")

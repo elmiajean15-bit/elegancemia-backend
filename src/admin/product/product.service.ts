@@ -47,7 +47,7 @@ export class ProductService {
             create: data.variants ? this.safeParse(data.variants) : [],
           },
 
-          tags: {
+          productTags: {
             connectOrCreate: data.tags
               ? this.safeParse(data.tags).map((tag) => ({
                   where: { slug: tag.slug },
@@ -59,7 +59,7 @@ export class ProductService {
         include: {
           images: true,
           variants: true,
-          tags: true,
+          productTags: true,
         },
       });
     } catch (error: any) {
@@ -76,7 +76,7 @@ export class ProductService {
       include: {
         images: true,
         variants: true,
-        tags: true,
+        productTags: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -91,7 +91,7 @@ export class ProductService {
       include: {
         images: true,
         variants: true,
-        tags: true,
+        productTags: true,
       },
     });
 
@@ -146,7 +146,7 @@ export class ProductService {
           },
 
           // 🔥 TAGS RESET
-          tags: {
+          productTags: {
             set: [],
             connectOrCreate: data.tags
               ? this.safeParse(data.tags).map((tag) => ({
@@ -159,7 +159,7 @@ export class ProductService {
         include: {
           images: true,
           variants: true,
-          tags: true,
+          productTags: true,
         },
       });
     } catch (error: any) {
@@ -279,7 +279,7 @@ export class ProductService {
 //         include: {
 //           images: true,
 //           variants: true,
-//           tags: true,
+//           productTags: true,
 //         },
 //       });
 //     } catch (error) {
@@ -296,7 +296,7 @@ export class ProductService {
 //       include: {
 //         images: true,
 //         variants: true,
-//         tags: true,
+//         productTags: true,
 //       },
 //       orderBy: {
 //         createdAt: 'desc',
@@ -358,7 +358,7 @@ export class ProductService {
 //         include: {
 //           images: true,
 //           variants: true,
-//           tags: true,
+//           productTags: true,
 //         },
 //       });
 //     } catch (error) {
@@ -376,7 +376,7 @@ export class ProductService {
 //       include: {
 //         images: true,
 //         variants: true,
-//         tags: true,
+//         productTags: true,
 //       },
 //     });
 
@@ -466,7 +466,7 @@ export class ProductService {
 //         include: {
 //           images: true,
 //           variants: true,
-//           tags: true,
+//           productTags: true,
 //         },
 //       });
 //     } catch (error) {
@@ -483,7 +483,7 @@ export class ProductService {
 //       include: {
 //         images: true,
 //         variants: true,
-//         tags: true,
+//         productTags: true,
 //       },
 //       orderBy: {
 //         createdAt: 'desc',
@@ -498,7 +498,7 @@ export class ProductService {
 //       include: {
 //         images: true,
 //         variants: true,
-//         tags: true,
+//         productTags: true,
 //       },
 //     });
 
@@ -559,7 +559,7 @@ export class ProductService {
 //         include: {
 //           images: true,
 //           variants: true,
-//           tags: true,
+//           productTags: true,
 //         },
 //       });
 //     } catch (error) {
