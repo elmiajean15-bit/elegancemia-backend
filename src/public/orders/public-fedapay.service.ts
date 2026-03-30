@@ -10,50 +10,53 @@ export class PublicFedapayService {
     );
   }
 
-  async createTransaction(data: {
-    amount: number;
-    email?: string;
-    name: string;
-    phone: string;
-    orderId: string;
-    countryCode: string;
-  }) {
-    try {
-      // ✅ 1. CREATE TRANSACTION
-      const transaction = await Transaction.create({
-        description: `Commande ${data.orderId}`,
-        amount: data.amount,
-        currency: { iso: "XOF" },
+async createTransaction(data: {
+  amount: number;
+  email?: string;
+  name: string;
+  phone: string;
+  orderId: string;
+  countryCode: string;
+}) {
+  try {
+    const transaction = await Transaction.create({
+      description: `Commande ${data.orderId}`,
+      amount: data.amount,
+      currency: { iso: "XOF" },
 
-        callback_url: `${process.env.FRONTEND_URL}/checkout/success`,
-        cancel_url: `${process.env.FRONTEND_URL}/checkout/error`,
+      callback_url: `${process.env.FRONTEND_URL}/checkout/success`,
+      cancel_url: `${process.env.FRONTEND_URL}/checkout/error`,
 
-        customer: {
-          firstname: data.name,
-          email: data.email,
-          phone_number: {
-            number: data.phone,
-            country: data.countryCode.toLowerCase(),
-          },
+      customer: {
+        firstname: data.name,
+        email: data.email,
+        phone_number: {
+          number: data.phone.replace("+", ""), // ✅ FIX
+          country: data.countryCode.toLowerCase(),
         },
-      });
+      },
+    });
 
-      // ✅ 2. GENERATE TOKEN (OBLIGATOIRE)
-      const tokenResponse = await transaction.generateToken();
+    const tokenResponse = await transaction.generateToken();
 
-      const paymentUrl = tokenResponse.url;
-
-      return {
-        paymentUrl,
-        reference: transaction.reference,
-        transactionId: transaction.id,
-      };
-
-    } catch (error) {
-      console.error("FedaPay error:", error);
-      throw error;
+    if (!tokenResponse || !tokenResponse.url) {
+      throw new Error("URL de paiement introuvable");
     }
+
+    return {
+      paymentUrl: tokenResponse.url,
+      reference: transaction.reference,
+      transactionId: transaction.id,
+    };
+
+  } catch (error: any) {
+    console.error("FedaPay error:", {
+      message: error?.message,
+    });
+
+    throw new Error("Paiement impossible");
   }
+}
 }
 
 // // fedapay.service.ts
