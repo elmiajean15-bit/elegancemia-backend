@@ -89,7 +89,7 @@ import { ClientProfileModule } from './client/profile/client-profile.module';
         from: `"Elegance Mia" <${process.env.MAIL_USER}>`,
       },
       template: {
-        dir: join(process.cwd(), 'src/templates'), // dossier templates
+        dir: join(process.cwd(), 'dist/src/templates'), // dossier templates
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true,

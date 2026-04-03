@@ -20,7 +20,7 @@ import { join } from 'path';
         from: `"Elegance Mia" <${process.env.MAIL_USER}>`,
       },
       template: {
-        dir: join(process.cwd(), 'src/templates'),
+        dir: join(process.cwd(), 'dist/src/templates'),
         adapter: new HandlebarsAdapter(),
         options: { strict: true },
       },
