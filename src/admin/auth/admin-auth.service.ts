@@ -30,6 +30,7 @@ export class AdminAuthService {
         name: true,
         email: true,
         phone: true,
+        avatar: true,
         role: true,
         isActive: true,
         createdAt: true,
@@ -75,8 +76,6 @@ export class AdminAuthService {
       { userId: admin.id, role: 'admin', type: 'reset', jti: uuidv4() },
       { secret: process.env.ADMIN_JWT_SECRET, expiresIn: '15m' },
     );
-
-    console.log(token);
 
     const resetLink = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/super-level-mode/reinitialiser-mot-de-passe?token=${token}`;
 

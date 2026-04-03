@@ -18,6 +18,16 @@ export const AdminRole = {
 export type AdminRole = (typeof AdminRole)[keyof typeof AdminRole]
 
 
+export const CustomOrderStatus = {
+  pending: 'pending',
+  in_progress: 'in_progress',
+  completed: 'completed',
+  cancelled: 'cancelled'
+} as const
+
+export type CustomOrderStatus = (typeof CustomOrderStatus)[keyof typeof CustomOrderStatus]
+
+
 export const ProductCategory = {
   pagne: 'pagne',
   tissu: 'tissu',

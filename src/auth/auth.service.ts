@@ -27,6 +27,7 @@ export class AuthService {
         id: true,
         name: true,
         email: true,
+        avatar: true,
         role: true,
         phone: true,
         city: true,
@@ -101,17 +102,8 @@ export class AuthService {
       { secret: process.env.JWT_SECRET, expiresIn: '15m' },
     );
 
-    console.log(token);
-
     const resetLink = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/reinitialiser-mot-de-passe?token=${token}`;
 
-    // Envoyer email
-    // await this.mailerService.sendMail({
-    //   to: client.email,
-    //   subject: 'Réinitialisation de votre mot de passe',
-    //   template: 'reset-password', // template ejs ou hbs
-    //   context: { name: client.name, resetLink },
-    // });
 
     await this.mailerService.sendMail({
       to: client.email,
@@ -138,6 +130,7 @@ export class AuthService {
     const client = await this.prisma.client.findUnique({
       where: { id: payload.userId },
     });
+    
     if (!client) throw new NotFoundException('Client non trouvé');
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);

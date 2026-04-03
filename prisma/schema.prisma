@@ -22,6 +22,8 @@ model Admin {
 
   password String @map("password")
 
+  avatar   String?       @map("avatar")
+
   role AdminRole @default(admin) @map("role")
 
   isActive Boolean @default(true) @map("is_active")
@@ -182,8 +184,8 @@ model BlogPost {
   id      String @id @default(uuid()) @map("id")
   slug    String @unique @map("slug")
   title   String @map("title")
-  excerpt String @map("excerpt")
-  content String @map("content")
+  excerpt String @db.Text @map("excerpt")
+  content String @db.Text @map("content")
 
   category BlogCategory @map("category")
 
@@ -295,6 +297,9 @@ model Payment {
 
   amount Float @map("amount")
 
+  // Payment
+  amountPaid Float @default(0) @map("amount_paid")
+
   currency Currency @map("currency")
 
   status String @map("status")
@@ -323,40 +328,35 @@ model Payment {
 model CustomModeOrder {
   id String @id @default(uuid()) @map("id")
 
-  // 🔐 CLIENT CONNECTÉ
   clientId String? @map("client_id")
   client   Client? @relation(fields: [clientId], references: [id])
 
-  // 👤 GUEST
   guestClientId String?      @map("guest_client_id")
   guestClient   GuestClient? @relation(fields: [guestClientId], references: [id])
 
-  // 🧵 CREATION
+  // EXISTANT (inchangé)
   type     String @map("type")
   genre    String @map("genre")
   pieces   String @map("pieces")
   occasion String @map("occasion")
 
-  // 🎨 STYLE
   style       String @map("style")
   couleur     String @map("couleur")
   matiere     String @map("matiere")
   complexite  String @map("complexite")
   inspiration String @map("inspiration")
 
-  // 🧪 TECHNIQUE
   taille      String @map("taille")
   morphologie String @map("morphologie")
   finitions   String @map("finitions")
   accessoires String @map("accessoires")
   essayage    String @map("essayage")
 
-  // 💰 BUSINESS
   budget    String @map("budget")
   delai     String @map("delai")
   livraison String @map("livraison")
 
-  // ⚠️ SNAPSHOT
+  // SNAPSHOT
   nom       String? @map("nom")
   email     String? @map("email")
   telephone String? @map("telephone")
@@ -364,13 +364,52 @@ model CustomModeOrder {
   pays      String? @map("pays")
   source    String? @map("source")
 
-  status String @default("pending") @map("status")
+  // 🔥 UPDATE
+  status CustomOrderStatus @default(pending) @map("status")
+
+  // 💬 CHAT
+  conversations Conversation[]
 
   payments Payment[]
+
+  finalPrice Float? @map("final_price")
+  paidAmount Float @default(0) @map("paid_amount")
 
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("custom_mode_orders")
+}
+
+enum CustomOrderStatus {
+  pending
+  in_progress
+  completed
+  cancelled
+}
+
+model Conversation {
+  id String @id @default(uuid())
+
+  orderId String
+  order   CustomModeOrder @relation(fields: [orderId], references: [id])
+
+  isOpen Boolean @default(true)
+
+  messages Message[]
+
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id String @id @default(uuid())
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+  senderType String // "admin" | "client"
+  content String
+
+  createdAt DateTime @default(now())
 }
 
 model BlacklistedToken {
@@ -383,6 +422,8 @@ model BlacklistedToken {
 
   @@map("blacklisted_tokens")
 }
+
+
 
 model ContactMessage {
   id String @id @default(uuid()) @map("id")
@@ -397,6 +438,25 @@ model ContactMessage {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("contact_messages")
+}
+
+model Testimonial {
+  id           String   @id @default(uuid()) @map("id")
+
+  fullName     String   @map("full_name")
+  occupation   String   @map("occupation")
+  content      String   @db.Text @map("content")
+
+  avatar       String   @map("avatar")
+  type         String   @default("mode") @map("type")
+
+  isPublished  Boolean  @default(true) @map("is_published")
+
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([isPublished])
+  @@map("testimonials")
 }
 
 enum ProductCategory {

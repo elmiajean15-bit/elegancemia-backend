@@ -1,7 +1,7 @@
 // product.controller.ts
 
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { PublicProductService } from './product.service';
+import { PublicProductService } from './public-product.service';
 import { ProductCategory } from 'generated/prisma/enums';
 
 @Controller('public/products')

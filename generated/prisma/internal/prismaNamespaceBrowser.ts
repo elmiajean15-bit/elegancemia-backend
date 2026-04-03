@@ -68,8 +68,11 @@ export const ModelName = {
   ShippingMethod: 'ShippingMethod',
   Payment: 'Payment',
   CustomModeOrder: 'CustomModeOrder',
+  Conversation: 'Conversation',
+  Message: 'Message',
   BlacklistedToken: 'BlacklistedToken',
-  ContactMessage: 'ContactMessage'
+  ContactMessage: 'ContactMessage',
+  Testimonial: 'Testimonial'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -94,6 +97,7 @@ export const AdminScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   password: 'password',
+  avatar: 'avatar',
   role: 'role',
   isActive: 'isActive',
   createdAt: 'createdAt'
@@ -295,6 +299,7 @@ export const PaymentScalarFieldEnum = {
   transactionId: 'transactionId',
   method: 'method',
   amount: 'amount',
+  amountPaid: 'amountPaid',
   currency: 'currency',
   status: 'status',
   orderId: 'orderId',
@@ -337,10 +342,33 @@ export const CustomModeOrderScalarFieldEnum = {
   pays: 'pays',
   source: 'source',
   status: 'status',
+  finalPrice: 'finalPrice',
+  paidAmount: 'paidAmount',
   createdAt: 'createdAt'
 } as const
 
 export type CustomModeOrderScalarFieldEnum = (typeof CustomModeOrderScalarFieldEnum)[keyof typeof CustomModeOrderScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  isOpen: 'isOpen',
+  createdAt: 'createdAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderType: 'senderType',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
 export const BlacklistedTokenScalarFieldEnum = {
@@ -366,6 +394,21 @@ export const ContactMessageScalarFieldEnum = {
 } as const
 
 export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
+
+
+export const TestimonialScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  occupation: 'occupation',
+  content: 'content',
+  avatar: 'avatar',
+  type: 'type',
+  isPublished: 'isPublished',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[keyof typeof TestimonialScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -397,7 +440,8 @@ export const AdminOrderByRelevanceFieldEnum = {
   name: 'name',
   email: 'email',
   phone: 'phone',
-  password: 'password'
+  password: 'password',
+  avatar: 'avatar'
 } as const
 
 export type AdminOrderByRelevanceFieldEnum = (typeof AdminOrderByRelevanceFieldEnum)[keyof typeof AdminOrderByRelevanceFieldEnum]
@@ -615,11 +659,28 @@ export const CustomModeOrderOrderByRelevanceFieldEnum = {
   telephone: 'telephone',
   ville: 'ville',
   pays: 'pays',
-  source: 'source',
-  status: 'status'
+  source: 'source'
 } as const
 
 export type CustomModeOrderOrderByRelevanceFieldEnum = (typeof CustomModeOrderOrderByRelevanceFieldEnum)[keyof typeof CustomModeOrderOrderByRelevanceFieldEnum]
+
+
+export const ConversationOrderByRelevanceFieldEnum = {
+  id: 'id',
+  orderId: 'orderId'
+} as const
+
+export type ConversationOrderByRelevanceFieldEnum = (typeof ConversationOrderByRelevanceFieldEnum)[keyof typeof ConversationOrderByRelevanceFieldEnum]
+
+
+export const MessageOrderByRelevanceFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderType: 'senderType',
+  content: 'content'
+} as const
+
+export type MessageOrderByRelevanceFieldEnum = (typeof MessageOrderByRelevanceFieldEnum)[keyof typeof MessageOrderByRelevanceFieldEnum]
 
 
 export const BlacklistedTokenOrderByRelevanceFieldEnum = {
@@ -641,4 +702,16 @@ export const ContactMessageOrderByRelevanceFieldEnum = {
 } as const
 
 export type ContactMessageOrderByRelevanceFieldEnum = (typeof ContactMessageOrderByRelevanceFieldEnum)[keyof typeof ContactMessageOrderByRelevanceFieldEnum]
+
+
+export const TestimonialOrderByRelevanceFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  occupation: 'occupation',
+  content: 'content',
+  avatar: 'avatar',
+  type: 'type'
+} as const
+
+export type TestimonialOrderByRelevanceFieldEnum = (typeof TestimonialOrderByRelevanceFieldEnum)[keyof typeof TestimonialOrderByRelevanceFieldEnum]
 

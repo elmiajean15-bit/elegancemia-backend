@@ -125,6 +125,16 @@ export type Payment = Prisma.PaymentModel
  */
 export type CustomModeOrder = Prisma.CustomModeOrderModel
 /**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
  * Model BlacklistedToken
  * 
  */
@@ -134,3 +144,8 @@ export type BlacklistedToken = Prisma.BlacklistedTokenModel
  * 
  */
 export type ContactMessage = Prisma.ContactMessageModel
+/**
+ * Model Testimonial
+ * 
+ */
+export type Testimonial = Prisma.TestimonialModel

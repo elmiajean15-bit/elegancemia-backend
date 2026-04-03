@@ -1,8 +1,8 @@
 // product.module.ts
 
 import { Module } from '@nestjs/common';
-import { PublicProductService } from './product.service';
-import { PublicProductController } from './product.controller';
+import { PublicProductService } from './public-product.service';
+import { PublicProductController } from './public-product.controller';
 import { PrismaService } from '../../database/prisma.service';
 
 @Module({

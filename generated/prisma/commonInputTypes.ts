@@ -408,6 +408,23 @@ export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonNullableFilter<$PrismaModel>
 }
 
+export type EnumCustomOrderStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomOrderStatus | Prisma.EnumCustomOrderStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomOrderStatus[]
+  notIn?: $Enums.CustomOrderStatus[]
+  not?: Prisma.NestedEnumCustomOrderStatusFilter<$PrismaModel> | $Enums.CustomOrderStatus
+}
+
+export type EnumCustomOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomOrderStatus | Prisma.EnumCustomOrderStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomOrderStatus[]
+  notIn?: $Enums.CustomOrderStatus[]
+  not?: Prisma.NestedEnumCustomOrderStatusWithAggregatesFilter<$PrismaModel> | $Enums.CustomOrderStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomOrderStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomOrderStatusFilter<$PrismaModel>
+}
+
 export type EnumContactSubjectFilter<$PrismaModel = never> = {
   equals?: $Enums.ContactSubject | Prisma.EnumContactSubjectFieldRefInput<$PrismaModel>
   in?: $Enums.ContactSubject[]
@@ -796,6 +813,23 @@ export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue
   gte?: runtime.InputJsonValue
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumCustomOrderStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomOrderStatus | Prisma.EnumCustomOrderStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomOrderStatus[]
+  notIn?: $Enums.CustomOrderStatus[]
+  not?: Prisma.NestedEnumCustomOrderStatusFilter<$PrismaModel> | $Enums.CustomOrderStatus
+}
+
+export type NestedEnumCustomOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomOrderStatus | Prisma.EnumCustomOrderStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomOrderStatus[]
+  notIn?: $Enums.CustomOrderStatus[]
+  not?: Prisma.NestedEnumCustomOrderStatusWithAggregatesFilter<$PrismaModel> | $Enums.CustomOrderStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomOrderStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomOrderStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumContactSubjectFilter<$PrismaModel = never> = {

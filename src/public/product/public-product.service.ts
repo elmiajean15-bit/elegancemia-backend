@@ -2,7 +2,8 @@
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
-import { Prisma, ProductCategory } from '../../../generated/prisma/client';
+import { Prisma } from '../../../generated/prisma/client';
+import { ProductCategory } from '../../../generated/prisma/enums';
 
 @Injectable()
 export class PublicProductService {
@@ -108,26 +109,38 @@ export class PublicProductService {
   }
 
   // ✅ RELATED PRODUCTS
+  // async findRelated(category: ProductCategory, excludeId?: string, limit = 4) {
+  //   return this.prisma.product.findMany({
+  //     where: {
+  //       category,
+  //       ...(excludeId && {
+  //         id: {
+  //           not: excludeId,
+  //         },
+  //       }),
+  //     },
+
+  //     take: limit,
+
+  //     orderBy: {
+  //       createdAt: 'desc',
+  //     },
+
+  //     include: {
+  //       images: true,
+  //     },
+  //   });
+  // }
+
   async findRelated(category: ProductCategory, excludeId?: string, limit = 4) {
     return this.prisma.product.findMany({
       where: {
         category,
-        ...(excludeId && {
-          id: {
-            not: excludeId,
-          },
-        }),
+        ...(excludeId && { id: { not: excludeId } }),
       },
-
       take: limit,
-
-      orderBy: {
-        createdAt: 'desc',
-      },
-
-      include: {
-        images: true,
-      },
+      orderBy: { createdAt: 'desc' },
+      include: { images: true },
     });
   }
 }

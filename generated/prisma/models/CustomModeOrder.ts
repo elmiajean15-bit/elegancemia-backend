@@ -20,8 +20,20 @@ export type CustomModeOrderModel = runtime.Types.Result.DefaultSelection<Prisma.
 
 export type AggregateCustomModeOrder = {
   _count: CustomModeOrderCountAggregateOutputType | null
+  _avg: CustomModeOrderAvgAggregateOutputType | null
+  _sum: CustomModeOrderSumAggregateOutputType | null
   _min: CustomModeOrderMinAggregateOutputType | null
   _max: CustomModeOrderMaxAggregateOutputType | null
+}
+
+export type CustomModeOrderAvgAggregateOutputType = {
+  finalPrice: number | null
+  paidAmount: number | null
+}
+
+export type CustomModeOrderSumAggregateOutputType = {
+  finalPrice: number | null
+  paidAmount: number | null
 }
 
 export type CustomModeOrderMinAggregateOutputType = {
@@ -51,7 +63,9 @@ export type CustomModeOrderMinAggregateOutputType = {
   ville: string | null
   pays: string | null
   source: string | null
-  status: string | null
+  status: $Enums.CustomOrderStatus | null
+  finalPrice: number | null
+  paidAmount: number | null
   createdAt: Date | null
 }
 
@@ -82,7 +96,9 @@ export type CustomModeOrderMaxAggregateOutputType = {
   ville: string | null
   pays: string | null
   source: string | null
-  status: string | null
+  status: $Enums.CustomOrderStatus | null
+  finalPrice: number | null
+  paidAmount: number | null
   createdAt: Date | null
 }
 
@@ -114,10 +130,22 @@ export type CustomModeOrderCountAggregateOutputType = {
   pays: number
   source: number
   status: number
+  finalPrice: number
+  paidAmount: number
   createdAt: number
   _all: number
 }
 
+
+export type CustomModeOrderAvgAggregateInputType = {
+  finalPrice?: true
+  paidAmount?: true
+}
+
+export type CustomModeOrderSumAggregateInputType = {
+  finalPrice?: true
+  paidAmount?: true
+}
 
 export type CustomModeOrderMinAggregateInputType = {
   id?: true
@@ -147,6 +175,8 @@ export type CustomModeOrderMinAggregateInputType = {
   pays?: true
   source?: true
   status?: true
+  finalPrice?: true
+  paidAmount?: true
   createdAt?: true
 }
 
@@ -178,6 +208,8 @@ export type CustomModeOrderMaxAggregateInputType = {
   pays?: true
   source?: true
   status?: true
+  finalPrice?: true
+  paidAmount?: true
   createdAt?: true
 }
 
@@ -209,6 +241,8 @@ export type CustomModeOrderCountAggregateInputType = {
   pays?: true
   source?: true
   status?: true
+  finalPrice?: true
+  paidAmount?: true
   createdAt?: true
   _all?: true
 }
@@ -251,6 +285,18 @@ export type CustomModeOrderAggregateArgs<ExtArgs extends runtime.Types.Extension
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: CustomModeOrderAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: CustomModeOrderSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: CustomModeOrderMinAggregateInputType
@@ -281,6 +327,8 @@ export type CustomModeOrderGroupByArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   _count?: CustomModeOrderCountAggregateInputType | true
+  _avg?: CustomModeOrderAvgAggregateInputType
+  _sum?: CustomModeOrderSumAggregateInputType
   _min?: CustomModeOrderMinAggregateInputType
   _max?: CustomModeOrderMaxAggregateInputType
 }
@@ -312,9 +360,13 @@ export type CustomModeOrderGroupByOutputType = {
   ville: string | null
   pays: string | null
   source: string | null
-  status: string
+  status: $Enums.CustomOrderStatus
+  finalPrice: number | null
+  paidAmount: number
   createdAt: Date
   _count: CustomModeOrderCountAggregateOutputType | null
+  _avg: CustomModeOrderAvgAggregateOutputType | null
+  _sum: CustomModeOrderSumAggregateOutputType | null
   _min: CustomModeOrderMinAggregateOutputType | null
   _max: CustomModeOrderMaxAggregateOutputType | null
 }
@@ -364,10 +416,13 @@ export type CustomModeOrderWhereInput = {
   ville?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   pays?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   source?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
-  status?: Prisma.StringFilter<"CustomModeOrder"> | string
+  status?: Prisma.EnumCustomOrderStatusFilter<"CustomModeOrder"> | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.FloatNullableFilter<"CustomModeOrder"> | number | null
+  paidAmount?: Prisma.FloatFilter<"CustomModeOrder"> | number
   createdAt?: Prisma.DateTimeFilter<"CustomModeOrder"> | Date | string
   client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
   guestClient?: Prisma.XOR<Prisma.GuestClientNullableScalarRelationFilter, Prisma.GuestClientWhereInput> | null
+  conversations?: Prisma.ConversationListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
 }
 
@@ -399,9 +454,12 @@ export type CustomModeOrderOrderByWithRelationInput = {
   pays?: Prisma.SortOrderInput | Prisma.SortOrder
   source?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  finalPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  paidAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   client?: Prisma.ClientOrderByWithRelationInput
   guestClient?: Prisma.GuestClientOrderByWithRelationInput
+  conversations?: Prisma.ConversationOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   _relevance?: Prisma.CustomModeOrderOrderByRelevanceInput
 }
@@ -436,10 +494,13 @@ export type CustomModeOrderWhereUniqueInput = Prisma.AtLeast<{
   ville?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   pays?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   source?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
-  status?: Prisma.StringFilter<"CustomModeOrder"> | string
+  status?: Prisma.EnumCustomOrderStatusFilter<"CustomModeOrder"> | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.FloatNullableFilter<"CustomModeOrder"> | number | null
+  paidAmount?: Prisma.FloatFilter<"CustomModeOrder"> | number
   createdAt?: Prisma.DateTimeFilter<"CustomModeOrder"> | Date | string
   client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
   guestClient?: Prisma.XOR<Prisma.GuestClientNullableScalarRelationFilter, Prisma.GuestClientWhereInput> | null
+  conversations?: Prisma.ConversationListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
 }, "id">
 
@@ -471,10 +532,14 @@ export type CustomModeOrderOrderByWithAggregationInput = {
   pays?: Prisma.SortOrderInput | Prisma.SortOrder
   source?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  finalPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  paidAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.CustomModeOrderCountOrderByAggregateInput
+  _avg?: Prisma.CustomModeOrderAvgOrderByAggregateInput
   _max?: Prisma.CustomModeOrderMaxOrderByAggregateInput
   _min?: Prisma.CustomModeOrderMinOrderByAggregateInput
+  _sum?: Prisma.CustomModeOrderSumOrderByAggregateInput
 }
 
 export type CustomModeOrderScalarWhereWithAggregatesInput = {
@@ -507,7 +572,9 @@ export type CustomModeOrderScalarWhereWithAggregatesInput = {
   ville?: Prisma.StringNullableWithAggregatesFilter<"CustomModeOrder"> | string | null
   pays?: Prisma.StringNullableWithAggregatesFilter<"CustomModeOrder"> | string | null
   source?: Prisma.StringNullableWithAggregatesFilter<"CustomModeOrder"> | string | null
-  status?: Prisma.StringWithAggregatesFilter<"CustomModeOrder"> | string
+  status?: Prisma.EnumCustomOrderStatusWithAggregatesFilter<"CustomModeOrder"> | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.FloatNullableWithAggregatesFilter<"CustomModeOrder"> | number | null
+  paidAmount?: Prisma.FloatWithAggregatesFilter<"CustomModeOrder"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CustomModeOrder"> | Date | string
 }
 
@@ -536,10 +603,13 @@ export type CustomModeOrderCreateInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutCustomModeOrdersInput
   guestClient?: Prisma.GuestClientCreateNestedOneWithoutOrdersInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutOrderInput
   payments?: Prisma.PaymentCreateNestedManyWithoutCustomModeOrderInput
 }
 
@@ -570,8 +640,11 @@ export type CustomModeOrderUncheckedCreateInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutOrderInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomModeOrderInput
 }
 
@@ -600,10 +673,13 @@ export type CustomModeOrderUpdateInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneWithoutCustomModeOrdersNestedInput
   guestClient?: Prisma.GuestClientUpdateOneWithoutOrdersNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutOrderNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutCustomModeOrderNestedInput
 }
 
@@ -634,8 +710,11 @@ export type CustomModeOrderUncheckedUpdateInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutOrderNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomModeOrderNestedInput
 }
 
@@ -666,7 +745,9 @@ export type CustomModeOrderCreateManyInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
 }
 
@@ -695,7 +776,9 @@ export type CustomModeOrderUpdateManyMutationInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -726,7 +809,9 @@ export type CustomModeOrderUncheckedUpdateManyInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -779,7 +864,14 @@ export type CustomModeOrderCountOrderByAggregateInput = {
   pays?: Prisma.SortOrder
   source?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  finalPrice?: Prisma.SortOrder
+  paidAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type CustomModeOrderAvgOrderByAggregateInput = {
+  finalPrice?: Prisma.SortOrder
+  paidAmount?: Prisma.SortOrder
 }
 
 export type CustomModeOrderMaxOrderByAggregateInput = {
@@ -810,6 +902,8 @@ export type CustomModeOrderMaxOrderByAggregateInput = {
   pays?: Prisma.SortOrder
   source?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  finalPrice?: Prisma.SortOrder
+  paidAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -841,7 +935,19 @@ export type CustomModeOrderMinOrderByAggregateInput = {
   pays?: Prisma.SortOrder
   source?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  finalPrice?: Prisma.SortOrder
+  paidAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type CustomModeOrderSumOrderByAggregateInput = {
+  finalPrice?: Prisma.SortOrder
+  paidAmount?: Prisma.SortOrder
+}
+
+export type CustomModeOrderScalarRelationFilter = {
+  is?: Prisma.CustomModeOrderWhereInput
+  isNot?: Prisma.CustomModeOrderWhereInput
 }
 
 export type CustomModeOrderCreateNestedManyWithoutClientInput = {
@@ -944,6 +1050,24 @@ export type CustomModeOrderUpdateOneWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomModeOrderUpdateToOneWithWhereWithoutPaymentsInput, Prisma.CustomModeOrderUpdateWithoutPaymentsInput>, Prisma.CustomModeOrderUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type EnumCustomOrderStatusFieldUpdateOperationsInput = {
+  set?: $Enums.CustomOrderStatus
+}
+
+export type CustomModeOrderCreateNestedOneWithoutConversationsInput = {
+  create?: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutConversationsInput, Prisma.CustomModeOrderUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.CustomModeOrderCreateOrConnectWithoutConversationsInput
+  connect?: Prisma.CustomModeOrderWhereUniqueInput
+}
+
+export type CustomModeOrderUpdateOneRequiredWithoutConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutConversationsInput, Prisma.CustomModeOrderUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.CustomModeOrderCreateOrConnectWithoutConversationsInput
+  upsert?: Prisma.CustomModeOrderUpsertWithoutConversationsInput
+  connect?: Prisma.CustomModeOrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomModeOrderUpdateToOneWithWhereWithoutConversationsInput, Prisma.CustomModeOrderUpdateWithoutConversationsInput>, Prisma.CustomModeOrderUncheckedUpdateWithoutConversationsInput>
+}
+
 export type CustomModeOrderCreateWithoutClientInput = {
   id?: string
   type: string
@@ -969,9 +1093,12 @@ export type CustomModeOrderCreateWithoutClientInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
   guestClient?: Prisma.GuestClientCreateNestedOneWithoutOrdersInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutOrderInput
   payments?: Prisma.PaymentCreateNestedManyWithoutCustomModeOrderInput
 }
 
@@ -1001,8 +1128,11 @@ export type CustomModeOrderUncheckedCreateWithoutClientInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutOrderInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomModeOrderInput
 }
 
@@ -1062,7 +1192,9 @@ export type CustomModeOrderScalarWhereInput = {
   ville?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   pays?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
   source?: Prisma.StringNullableFilter<"CustomModeOrder"> | string | null
-  status?: Prisma.StringFilter<"CustomModeOrder"> | string
+  status?: Prisma.EnumCustomOrderStatusFilter<"CustomModeOrder"> | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.FloatNullableFilter<"CustomModeOrder"> | number | null
+  paidAmount?: Prisma.FloatFilter<"CustomModeOrder"> | number
   createdAt?: Prisma.DateTimeFilter<"CustomModeOrder"> | Date | string
 }
 
@@ -1091,9 +1223,12 @@ export type CustomModeOrderCreateWithoutGuestClientInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutCustomModeOrdersInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutOrderInput
   payments?: Prisma.PaymentCreateNestedManyWithoutCustomModeOrderInput
 }
 
@@ -1123,8 +1258,11 @@ export type CustomModeOrderUncheckedCreateWithoutGuestClientInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutOrderInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomModeOrderInput
 }
 
@@ -1179,10 +1317,13 @@ export type CustomModeOrderCreateWithoutPaymentsInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutCustomModeOrdersInput
   guestClient?: Prisma.GuestClientCreateNestedOneWithoutOrdersInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutOrderInput
 }
 
 export type CustomModeOrderUncheckedCreateWithoutPaymentsInput = {
@@ -1212,8 +1353,11 @@ export type CustomModeOrderUncheckedCreateWithoutPaymentsInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type CustomModeOrderCreateOrConnectWithoutPaymentsInput = {
@@ -1257,10 +1401,13 @@ export type CustomModeOrderUpdateWithoutPaymentsInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneWithoutCustomModeOrdersNestedInput
   guestClient?: Prisma.GuestClientUpdateOneWithoutOrdersNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutOrderNestedInput
 }
 
 export type CustomModeOrderUncheckedUpdateWithoutPaymentsInput = {
@@ -1290,8 +1437,163 @@ export type CustomModeOrderUncheckedUpdateWithoutPaymentsInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type CustomModeOrderCreateWithoutConversationsInput = {
+  id?: string
+  type: string
+  genre: string
+  pieces: string
+  occasion: string
+  style: string
+  couleur: string
+  matiere: string
+  complexite: string
+  inspiration: string
+  taille: string
+  morphologie: string
+  finitions: string
+  accessoires: string
+  essayage: string
+  budget: string
+  delai: string
+  livraison: string
+  nom?: string | null
+  email?: string | null
+  telephone?: string | null
+  ville?: string | null
+  pays?: string | null
+  source?: string | null
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
+  createdAt?: Date | string
+  client?: Prisma.ClientCreateNestedOneWithoutCustomModeOrdersInput
+  guestClient?: Prisma.GuestClientCreateNestedOneWithoutOrdersInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCustomModeOrderInput
+}
+
+export type CustomModeOrderUncheckedCreateWithoutConversationsInput = {
+  id?: string
+  clientId?: string | null
+  guestClientId?: string | null
+  type: string
+  genre: string
+  pieces: string
+  occasion: string
+  style: string
+  couleur: string
+  matiere: string
+  complexite: string
+  inspiration: string
+  taille: string
+  morphologie: string
+  finitions: string
+  accessoires: string
+  essayage: string
+  budget: string
+  delai: string
+  livraison: string
+  nom?: string | null
+  email?: string | null
+  telephone?: string | null
+  ville?: string | null
+  pays?: string | null
+  source?: string | null
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
+  createdAt?: Date | string
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomModeOrderInput
+}
+
+export type CustomModeOrderCreateOrConnectWithoutConversationsInput = {
+  where: Prisma.CustomModeOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutConversationsInput, Prisma.CustomModeOrderUncheckedCreateWithoutConversationsInput>
+}
+
+export type CustomModeOrderUpsertWithoutConversationsInput = {
+  update: Prisma.XOR<Prisma.CustomModeOrderUpdateWithoutConversationsInput, Prisma.CustomModeOrderUncheckedUpdateWithoutConversationsInput>
+  create: Prisma.XOR<Prisma.CustomModeOrderCreateWithoutConversationsInput, Prisma.CustomModeOrderUncheckedCreateWithoutConversationsInput>
+  where?: Prisma.CustomModeOrderWhereInput
+}
+
+export type CustomModeOrderUpdateToOneWithWhereWithoutConversationsInput = {
+  where?: Prisma.CustomModeOrderWhereInput
+  data: Prisma.XOR<Prisma.CustomModeOrderUpdateWithoutConversationsInput, Prisma.CustomModeOrderUncheckedUpdateWithoutConversationsInput>
+}
+
+export type CustomModeOrderUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  genre?: Prisma.StringFieldUpdateOperationsInput | string
+  pieces?: Prisma.StringFieldUpdateOperationsInput | string
+  occasion?: Prisma.StringFieldUpdateOperationsInput | string
+  style?: Prisma.StringFieldUpdateOperationsInput | string
+  couleur?: Prisma.StringFieldUpdateOperationsInput | string
+  matiere?: Prisma.StringFieldUpdateOperationsInput | string
+  complexite?: Prisma.StringFieldUpdateOperationsInput | string
+  inspiration?: Prisma.StringFieldUpdateOperationsInput | string
+  taille?: Prisma.StringFieldUpdateOperationsInput | string
+  morphologie?: Prisma.StringFieldUpdateOperationsInput | string
+  finitions?: Prisma.StringFieldUpdateOperationsInput | string
+  accessoires?: Prisma.StringFieldUpdateOperationsInput | string
+  essayage?: Prisma.StringFieldUpdateOperationsInput | string
+  budget?: Prisma.StringFieldUpdateOperationsInput | string
+  delai?: Prisma.StringFieldUpdateOperationsInput | string
+  livraison?: Prisma.StringFieldUpdateOperationsInput | string
+  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneWithoutCustomModeOrdersNestedInput
+  guestClient?: Prisma.GuestClientUpdateOneWithoutOrdersNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCustomModeOrderNestedInput
+}
+
+export type CustomModeOrderUncheckedUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guestClientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  genre?: Prisma.StringFieldUpdateOperationsInput | string
+  pieces?: Prisma.StringFieldUpdateOperationsInput | string
+  occasion?: Prisma.StringFieldUpdateOperationsInput | string
+  style?: Prisma.StringFieldUpdateOperationsInput | string
+  couleur?: Prisma.StringFieldUpdateOperationsInput | string
+  matiere?: Prisma.StringFieldUpdateOperationsInput | string
+  complexite?: Prisma.StringFieldUpdateOperationsInput | string
+  inspiration?: Prisma.StringFieldUpdateOperationsInput | string
+  taille?: Prisma.StringFieldUpdateOperationsInput | string
+  morphologie?: Prisma.StringFieldUpdateOperationsInput | string
+  finitions?: Prisma.StringFieldUpdateOperationsInput | string
+  accessoires?: Prisma.StringFieldUpdateOperationsInput | string
+  essayage?: Prisma.StringFieldUpdateOperationsInput | string
+  budget?: Prisma.StringFieldUpdateOperationsInput | string
+  delai?: Prisma.StringFieldUpdateOperationsInput | string
+  livraison?: Prisma.StringFieldUpdateOperationsInput | string
+  nom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telephone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomModeOrderNestedInput
 }
 
 export type CustomModeOrderCreateManyClientInput = {
@@ -1320,7 +1622,9 @@ export type CustomModeOrderCreateManyClientInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
 }
 
@@ -1349,9 +1653,12 @@ export type CustomModeOrderUpdateWithoutClientInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   guestClient?: Prisma.GuestClientUpdateOneWithoutOrdersNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutOrderNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutCustomModeOrderNestedInput
 }
 
@@ -1381,8 +1688,11 @@ export type CustomModeOrderUncheckedUpdateWithoutClientInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutOrderNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomModeOrderNestedInput
 }
 
@@ -1412,7 +1722,9 @@ export type CustomModeOrderUncheckedUpdateManyWithoutClientInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1442,7 +1754,9 @@ export type CustomModeOrderCreateManyGuestClientInput = {
   ville?: string | null
   pays?: string | null
   source?: string | null
-  status?: string
+  status?: $Enums.CustomOrderStatus
+  finalPrice?: number | null
+  paidAmount?: number
   createdAt?: Date | string
 }
 
@@ -1471,9 +1785,12 @@ export type CustomModeOrderUpdateWithoutGuestClientInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneWithoutCustomModeOrdersNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutOrderNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutCustomModeOrderNestedInput
 }
 
@@ -1503,8 +1820,11 @@ export type CustomModeOrderUncheckedUpdateWithoutGuestClientInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutOrderNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomModeOrderNestedInput
 }
 
@@ -1534,7 +1854,9 @@ export type CustomModeOrderUncheckedUpdateManyWithoutGuestClientInput = {
   ville?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pays?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomOrderStatusFieldUpdateOperationsInput | $Enums.CustomOrderStatus
+  finalPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1544,10 +1866,12 @@ export type CustomModeOrderUncheckedUpdateManyWithoutGuestClientInput = {
  */
 
 export type CustomModeOrderCountOutputType = {
+  conversations: number
   payments: number
 }
 
 export type CustomModeOrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  conversations?: boolean | CustomModeOrderCountOutputTypeCountConversationsArgs
   payments?: boolean | CustomModeOrderCountOutputTypeCountPaymentsArgs
 }
 
@@ -1559,6 +1883,13 @@ export type CustomModeOrderCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
    * Select specific fields to fetch from the CustomModeOrderCountOutputType
    */
   select?: Prisma.CustomModeOrderCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CustomModeOrderCountOutputType without action
+ */
+export type CustomModeOrderCountOutputTypeCountConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
 }
 
 /**
@@ -1597,9 +1928,12 @@ export type CustomModeOrderSelect<ExtArgs extends runtime.Types.Extensions.Inter
   pays?: boolean
   source?: boolean
   status?: boolean
+  finalPrice?: boolean
+  paidAmount?: boolean
   createdAt?: boolean
   client?: boolean | Prisma.CustomModeOrder$clientArgs<ExtArgs>
   guestClient?: boolean | Prisma.CustomModeOrder$guestClientArgs<ExtArgs>
+  conversations?: boolean | Prisma.CustomModeOrder$conversationsArgs<ExtArgs>
   payments?: boolean | Prisma.CustomModeOrder$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomModeOrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customModeOrder"]>
@@ -1634,13 +1968,16 @@ export type CustomModeOrderSelectScalar = {
   pays?: boolean
   source?: boolean
   status?: boolean
+  finalPrice?: boolean
+  paidAmount?: boolean
   createdAt?: boolean
 }
 
-export type CustomModeOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clientId" | "guestClientId" | "type" | "genre" | "pieces" | "occasion" | "style" | "couleur" | "matiere" | "complexite" | "inspiration" | "taille" | "morphologie" | "finitions" | "accessoires" | "essayage" | "budget" | "delai" | "livraison" | "nom" | "email" | "telephone" | "ville" | "pays" | "source" | "status" | "createdAt", ExtArgs["result"]["customModeOrder"]>
+export type CustomModeOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clientId" | "guestClientId" | "type" | "genre" | "pieces" | "occasion" | "style" | "couleur" | "matiere" | "complexite" | "inspiration" | "taille" | "morphologie" | "finitions" | "accessoires" | "essayage" | "budget" | "delai" | "livraison" | "nom" | "email" | "telephone" | "ville" | "pays" | "source" | "status" | "finalPrice" | "paidAmount" | "createdAt", ExtArgs["result"]["customModeOrder"]>
 export type CustomModeOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.CustomModeOrder$clientArgs<ExtArgs>
   guestClient?: boolean | Prisma.CustomModeOrder$guestClientArgs<ExtArgs>
+  conversations?: boolean | Prisma.CustomModeOrder$conversationsArgs<ExtArgs>
   payments?: boolean | Prisma.CustomModeOrder$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomModeOrderCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1650,6 +1987,7 @@ export type $CustomModeOrderPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     client: Prisma.$ClientPayload<ExtArgs> | null
     guestClient: Prisma.$GuestClientPayload<ExtArgs> | null
+    conversations: Prisma.$ConversationPayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1679,7 +2017,9 @@ export type $CustomModeOrderPayload<ExtArgs extends runtime.Types.Extensions.Int
     ville: string | null
     pays: string | null
     source: string | null
-    status: string
+    status: $Enums.CustomOrderStatus
+    finalPrice: number | null
+    paidAmount: number
     createdAt: Date
   }, ExtArgs["result"]["customModeOrder"]>
   composites: {}
@@ -2023,6 +2363,7 @@ export interface Prisma__CustomModeOrderClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   client<T extends Prisma.CustomModeOrder$clientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomModeOrder$clientArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   guestClient<T extends Prisma.CustomModeOrder$guestClientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomModeOrder$guestClientArgs<ExtArgs>>): Prisma.Prisma__GuestClientClient<runtime.Types.Result.GetResult<Prisma.$GuestClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  conversations<T extends Prisma.CustomModeOrder$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomModeOrder$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.CustomModeOrder$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomModeOrder$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2079,7 +2420,9 @@ export interface CustomModeOrderFieldRefs {
   readonly ville: Prisma.FieldRef<"CustomModeOrder", 'String'>
   readonly pays: Prisma.FieldRef<"CustomModeOrder", 'String'>
   readonly source: Prisma.FieldRef<"CustomModeOrder", 'String'>
-  readonly status: Prisma.FieldRef<"CustomModeOrder", 'String'>
+  readonly status: Prisma.FieldRef<"CustomModeOrder", 'CustomOrderStatus'>
+  readonly finalPrice: Prisma.FieldRef<"CustomModeOrder", 'Float'>
+  readonly paidAmount: Prisma.FieldRef<"CustomModeOrder", 'Float'>
   readonly createdAt: Prisma.FieldRef<"CustomModeOrder", 'DateTime'>
 }
     
@@ -2464,6 +2807,30 @@ export type CustomModeOrder$guestClientArgs<ExtArgs extends runtime.Types.Extens
    */
   include?: Prisma.GuestClientInclude<ExtArgs> | null
   where?: Prisma.GuestClientWhereInput
+}
+
+/**
+ * CustomModeOrder.conversations
+ */
+export type CustomModeOrder$conversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
 }
 
 /**
