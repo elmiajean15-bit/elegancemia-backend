@@ -88,7 +88,7 @@ export class PublicWebhookController {
       =============================== */
       const payment = await this.prisma.payment.findFirst({
         where: {
-          fedapayId: transactionId,
+          fedapayId: String(transactionId),
         },
       });
 

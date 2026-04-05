@@ -84,7 +84,7 @@ export class ClientModeOrdersWebhookController {
        🔍 3. FIND PAYMENT
     =============================== */
     const payment = await this.prisma.payment.findFirst({
-      where: { fedapayId: transactionId },
+      where: { fedapayId: String(transactionId) },
     });
 
     if (!payment) {
@@ -142,7 +142,7 @@ export class ClientModeOrdersWebhookController {
         } else {
           await this.prisma.customModeOrder.update({
             where: { id: order.id },
-            data: { status: "in_progress" },
+            data: { status: "in_progress", },
           });
         }
       }
