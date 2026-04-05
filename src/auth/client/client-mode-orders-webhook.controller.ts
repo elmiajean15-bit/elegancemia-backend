@@ -92,6 +92,11 @@ export class ClientModeOrdersWebhookController {
       return;
     }
 
+    if (!payment.customModeOrderId) {
+      console.error("❌ customModeOrderId manquant", payment.id);
+      return;
+    }
+
     /* ===============================
        🛑 4. IDEMPOTENCE
     =============================== */

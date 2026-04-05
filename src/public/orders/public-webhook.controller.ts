@@ -97,6 +97,11 @@ export class PublicWebhookController {
         return;
       }
 
+      if (!payment.orderId) {
+        console.error("❌ orderId manquant", payment.id);
+        return;
+      }
+
       /* ===============================
          🛑 4. IDEMPOTENCE
       =============================== */
