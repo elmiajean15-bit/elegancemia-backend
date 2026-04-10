@@ -388,28 +388,25 @@ enum CustomOrderStatus {
 }
 
 model Conversation {
-  id String @id @default(uuid())
+ id String @id @default(uuid()) @map("id")
+ orderId String @map("order_id")
+ order CustomModeOrder @relation(fields: [orderId], references: [id])
+ isOpen Boolean @default(true) @map("is_open")
+ messages Message[]
+ createdAt DateTime @default(now()) @map("created_at")
 
-  orderId String
-  order   CustomModeOrder @relation(fields: [orderId], references: [id])
-
-  isOpen Boolean @default(true)
-
-  messages Message[]
-
-  createdAt DateTime @default(now())
+ @@map("conversations")
 }
 
 model Message {
-  id String @id @default(uuid())
+ id String @id @default(uuid()) @map("id")
+ conversationId String @map("conversation_id")
+ conversation Conversation @relation(fields: [conversationId], references: [id])
+ senderType String @map("sender_type")
+ content String @db.Text
+ createdAt DateTime @default(now()) @map("created_at")
 
-  conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
-
-  senderType String // "admin" | "client"
-  content String
-
-  createdAt DateTime @default(now())
+ @@map("messages")
 }
 
 model BlacklistedToken {
